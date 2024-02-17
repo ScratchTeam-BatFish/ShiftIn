@@ -57,23 +57,14 @@ const config = {
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, 'src'),
-      publicPath: '/'
-    },
-    hot: true,
-    proxy: {
-      '/src': 'http:localhost:3000'
-    }
-  },
-  devServer: {
-    static: {
       directory: path.join(__dirname, 'client'),
       publicPath: '/'
     },
     hot: true,
-    proxy: {
-      '/src': 'http:localhost:3000'
-    }
+    proxy: [{
+      context: ['/'], // context can be a string or an array of strings to specify multiple paths
+      target: 'http://localhost:3000'
+    }],
   }
 };
 
