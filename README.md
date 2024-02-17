@@ -1,6 +1,5 @@
 # ShiftIn
 
-
 When you want to push up, these are the steps:
 1. git checkout dev (locally switch to dev branch)
 2. git pull origin dev (pull updates of dev down to your local system)
@@ -13,15 +12,10 @@ When you want to push up, these are the steps:
 9. When you are ready to publish to Main do step 7 but from dev=> Main
 
 
-<<<<<<< HEAD
-$ git commit -m "Adding 404 html.
-=======
-$ git commit -m "Refactor usability tests.
->>>>>>> dev
+git commit -m "Adding 404 html.
 >
 >
 Co-authored-by: RoderickXii <roderickx.deleon@gmail.com>
 Co-authored-by: julesdmai <julesdmai@gmail.com>
 Co-authored-by: kravchuknick <kravchuknick@gmail.com>
 Co-authored-by: robsinz <robsin@gmail.com>"
-
