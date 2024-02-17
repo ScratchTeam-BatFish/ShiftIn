@@ -13,7 +13,7 @@ When you want to push up, these are the steps:
 9. When you are ready to publish to Main do step 7 but from dev=> Main
 
 
-$ git commit -m "Refactor usability tests.
+git commit -m "Refactor usability tests.
 >
 >
 Co-authored-by: RoderickXii <roderickx.deleon@gmail.com>
