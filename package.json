@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "clean": "rm build/bundle.js",
-    "start": "NODE_ENV=development nodemon server/server.js",
+    "start": "NODE_ENV=production nodemon server/server.js",
     "build": "webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js \"",
     "test": "jest"
@@ -24,7 +24,7 @@
     "loader": "^2.1.1",
     "nodemon": "^3.0.3",
     "path": "^0.12.7",
-    "react": "^18.2.0",
+    "react": "^18.0.0",
     "react-dom": "^18.2.0",
     "sass": "^1.71.0",
     "sass-loader": "^14.1.0",
