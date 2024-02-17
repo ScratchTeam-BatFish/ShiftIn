@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Connect to MongoDB
-
+mongoose.connect('mongodb+srv://robsin:Vany6GDnj75wi7Uq@redlipped.qpavfet.mongodb.net/');
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
 
 
 // handle requests for static files
@@ -44,6 +47,14 @@ app.get('/bundle.js', (req, res) => {
   const route = path.join(__dirname, '../build/bundle.js');
 
   return res.sendFile(route);
+})
+
+
+
+// Route (/register) POST
+app.post('/register', (req, res) => {
+  console.log('routing to /register');
+  return res.status(200);
 })
 
 
