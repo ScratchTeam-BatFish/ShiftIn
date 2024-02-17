@@ -50,6 +50,14 @@ app.get('/bundle.js', (req, res) => {
 })
 
 
+
+// Route (/register) POST
+app.post('/register', (req, res) => {
+  console.log('routing to /register');
+  return res.status(200);
+})
+
+
 // start server listener
 app.listen(PORT, () => {
     console.log(`Backend server app listening on port ${PORT}`);
