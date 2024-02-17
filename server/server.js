@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Connect to MongoDB
-
+mongoose.connect('mongodb+srv://robsin:Vany6GDnj75wi7Uq@redlipped.qpavfet.mongodb.net/');
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
 
 
 // handle requests for static files
