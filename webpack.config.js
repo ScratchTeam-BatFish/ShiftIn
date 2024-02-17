@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   mode: "development",
-  entry: './index.html',
+  entry: './client/index.jsx',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js'
@@ -58,6 +58,16 @@ const config = {
   devServer: {
     static: {
       directory: path.join(__dirname, 'src'),
+      publicPath: '/'
+    },
+    hot: true,
+    proxy: {
+      '/src': 'http:localhost:3000'
+    }
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'client'),
       publicPath: '/'
     },
     hot: true,
