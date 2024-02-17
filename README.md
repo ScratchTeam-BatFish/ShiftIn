@@ -12,15 +12,8 @@ When you want to push up, these are the steps:
 9. When you are ready to publish to Main do step 7 but from dev=> Main
 
 
-<<<<<<< HEAD
-git commit -m "Adding 404 html.
-=======
-<<<<<<< HEAD
-$ git commit -m "Adding 404 html.
-=======
-$ git commit -m "Refactor usability tests.
->>>>>>> dev
->>>>>>> rd/wpsetup
+
+git commit -m "Merge dev into rd/wpsetup.
 >
 >
 Co-authored-by: RoderickXii <roderickx.deleon@gmail.com>
