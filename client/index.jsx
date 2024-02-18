@@ -6,4 +6,6 @@ import Login  from './log-in/login.jsx';
 import Register from './register/register.jsx';
 
 const mountNode = document.getElementById("root");
+// createRoot(mountNode).render(<Dashboard />);
+// createRoot(mountNode).render(<Login />);
 createRoot(mountNode).render(<Register />);
