@@ -65,7 +65,7 @@ export default function Login() {
       console.log('user verified in database');
 
       // else response for server is ok
-      console.log('---> navigating to /dashboard');
+      console.log('---> navigating to /dashboard\n');
       navigate ('/dashboard');
     } catch (err) {
        console.log('error is ', err);

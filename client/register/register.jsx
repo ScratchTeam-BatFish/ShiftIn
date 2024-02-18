@@ -78,7 +78,7 @@ export default function Register() {
       console.log('new user registration details: ', user);
       
       // flow to ('/login)
-      console.log('---> navigating to /login');
+      console.log('---> navigating to /login\n');
       navigate ('/login');
     } catch (err) {
        console.log('error is ', err);
