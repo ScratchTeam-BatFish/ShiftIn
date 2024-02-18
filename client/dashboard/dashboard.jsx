@@ -33,8 +33,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
-
+import { useNavigate } from 'react-router-dom'
 import Footer from '../footer.jsx'
+// import { customTheme } from '../customTheme.js'
 
 
 
@@ -53,10 +54,27 @@ function Copyright(props) {
 
 const drawerWidth = 240;
 
+
+/*
+// The following defines a styled component named AppBar using the styled function.
+
+It takes two arguments:
+1) MuiAppBar: The Material-UI component that serves as the base for the styled component.
+2) An object containing options for the styled component.
+
+The second set of parentheses (({ theme, open }) => ({ ... })) defines a function that receives props (theme and open) and returns an object containing the CSS styles for the component.
+
+*/
 const AppBar = styled(MuiAppBar, {
+  // This property is part of the options object passed to the styled function.
+  // specifies a function that determines whether a prop should be forwarded to the underlying component (MuiAppBar). In this case, it forwards all props except for open.
   shouldForwardProp: (prop) => prop !== 'open',
+  // The following arrow function receives the theme and open props as arguments and returns an object containing CSS styles for the AppBar component.
+  // It uses destructuring to extract theme and open from the props.
 })(({ theme, open }) => ({
+  // Sets the z-index of the AppBar component to be one level higher than the z-index of the drawer
   zIndex: theme.zIndex.drawer + 1,
+  // 
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -101,16 +119,40 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
+
+
+    // The ThemeProvider allows you to specify a theme object (defaultTheme) that contains global styling information for your application. This theme will be accessible to all components within the component tree. 
+    // defaultTheme object includes properties such as colors, typography settings, spacing, breakpoints, and other styling options used by components within the application.
     <ThemeProvider theme={defaultTheme}>
+
+      {/* The Box component is a foundational layout component in Material-UI that allows you to create layout structures easily. 
+      
+      The sx prop is used to apply custom styles to the Box component. In this case, display: 'flex' is applied, which makes the Box and its children display as flex items. This allows for flexible layout arrangements.
+      
+      */}
       <Box sx={{ display: 'flex' }}>
+        {/* 
+      The CssBaseline component is a special component provided by Material-UI that helps in normalizing CSS styles across different browsers - ensures consistent rendering of HTML elements by providing baseline styles, such as resetting margins and padding, to eliminate browser inconsistencies.
+      */}
         <CssBaseline />
+        {/* 
+      The AppBar component is a Material-UI component used to create application bars, typically placed at the top of the screen.
+      It can be positioned absolutely (position="absolute") to ensure it remains fixed at the top of the screen even when the user scrolls.
+      The open prop seems to be used to control whether the app bar is open or closed. This might be relevant in a responsive layout or a layout with a side drawer.
+      */}
+
         <AppBar position="absolute" open={open}>
+          {/* The Toolbar component is a Material-UI component used within the AppBar to create a toolbar.
+      The sx prop is used to apply custom styles to the Toolbar component. Here, pr: '24px' sets the right padding of the toolbar to 24px, ensuring consistent spacing and layout.
+      The comment // keep right padding when drawer closed provides a helpful explanation of the purpose of the right padding style, suggesting that it's intended to maintain padding even when a drawer (if present) is closed.
+      */}
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -126,8 +168,17 @@ export default function Dashboard() {
                 ...(open && { display: 'none' }),
               }}
             >
+              {/* The MenuIcon represents an icon, which is displayed inside the IconButton.
+              */}
+
               <MenuIcon />
+              {/* The IconButton represents a clickable button that typically contains an icon. In this case, it seems to be a button that toggles a drawer (a side panel).
+              */}
             </IconButton>
+
+            {/* The IconButton represents a clickable button that typically contains an icon. In this case, it seems to be a button that toggles a drawer (a side panel).
+              */}
+
             <Typography
               component="h1"
               variant="h6"
@@ -195,7 +246,7 @@ export default function Dashboard() {
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
-                  
+
                 >
                   {/* <Deposits /> */}
                 </Paper>
@@ -211,7 +262,7 @@ export default function Dashboard() {
             <Footer />
           </Container>
         </Box>
-    
+
       </Box>
     </ThemeProvider>
   );
