@@ -53,7 +53,7 @@ app.get('/bundle.js', (req, res) => {
 
 // Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
-  console.log('---> routed through /register');
+  console.log('---> routed through /register/n/n');
   // send them to login
   // server responds with status (201) indicating user has been created
   // server responds with json() // takes JSON as input and parses it to produce a JS object
@@ -64,7 +64,7 @@ app.post('/register', userController.createUser,(req, res) => {
 
 // Route (/login) POST / Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
-  console.log('---> routed through /login');
+  console.log('---> routed through /login/n/n');
   // Return token to client side to save to localStorage
   // server responds with status (202) indicating user has been accepted
   return res.status(202).json(res.locals.user);

@@ -6,7 +6,7 @@ const userController = {};
 // Token values
 // Create a user
 userController.createUser = async (req, res, next) => {
-    console.log('went into the server')
+    console.log('POST request to /register')
     console.log('req.body contains: ', req.body);
     // Destructure the properties off the object (req.body) from the form
     // Took out position
@@ -23,11 +23,12 @@ userController.createUser = async (req, res, next) => {
 
     // Creating user and storing into mongoDB
     try {
-        console.log('querying database...');
-        // check if username is unique
+        console.log('checking for unique username');
+        console.log('querying database...')
         const uniqueUsername = await User.findOne({username: username});
-        console.log('went into try block, uniqueUsername is: ', uniqueUsername);
-        console.log('null = input username does not exist in database');
+
+        console.log('uniqueUsername is: ', uniqueUsername);
+        console.log('if null, then username does not exist in database');
 
         if (uniqueUsername !== null) {
             console.log('username already exists');
@@ -55,7 +56,6 @@ userController.createUser = async (req, res, next) => {
 
         // testing
         console.log('user has been created: ', userInformation.username);
-        console.log('account created');
 
         // return next
         console.log('exiting userController.createUser');
