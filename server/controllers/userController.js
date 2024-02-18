@@ -75,21 +75,17 @@ userController.verifyUser = async (req, res, next) => {
             status: 400,
         });
     }
-
     // Find in database
     try {
         const userLogin = await User.findOne( {username: username, password: password} ); 
-
         if (userLogin === null) {
             return res.status(203).redirect('/register');
         }
-
         if (userLogin) {
             res.locals.user = userLogin;
             console.log('User logged in...cash money')
             return next();
         }
-
     } catch(err) {
         return next({
             log: `userController.verifyUser: ERROR ${err}`,
@@ -97,7 +93,6 @@ userController.verifyUser = async (req, res, next) => {
             message: {err: 'Error occurred in userController.verifyUser. Check server logs for more details.'}
         })
     }
-
     return next();
 }
 
