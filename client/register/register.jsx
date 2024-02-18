@@ -40,7 +40,9 @@ export default function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("data is", data)
+    console.log("data is: ", data)
+
+    console.log('user clicked submit. obtaining input from form.');
     const email = data.get('email');
     const password = data.get('password');
     const username = data.get('username');
@@ -54,6 +56,7 @@ export default function Register() {
     console.log('email', email)
 
     try {
+      console.log('sending request to server...')
       const response = await fetch('/register', {
         method: 'POST',
         headers: {
@@ -66,14 +69,16 @@ export default function Register() {
       if (!response.ok) throw new Error ('Registration failed');
 
       // console log the response object
+      console.log('server responded...');
       console.log("response : ", response);
-      console.log('newUser registered');
+      console.log('new user created in database');
 
       // parse the JSON response body to access the user object
       const user = await response.json();
       console.log('new user registration details: ', user);
       
       // flow to ('/login)
+      console.log('---> navigating to /login');
       navigate ('/login');
     } catch (err) {
        console.log('error is ', err);

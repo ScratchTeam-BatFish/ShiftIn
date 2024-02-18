@@ -7,7 +7,7 @@ const userController = {};
 // Create a user
 userController.createUser = async (req, res, next) => {
     console.log('went into the server')
-    console.log('req.body: ', req.body);
+    console.log('req.body contains: ', req.body);
     // Destructure the properties off the object (req.body) from the form
     // Took out position
     const { firstName, lastName, username, password } = req.body;
@@ -25,7 +25,8 @@ userController.createUser = async (req, res, next) => {
     try {
         // check if username is unique
         const uniqueUsername = await User.findOne({username: username});
-        console.log('went into try block, uniqueUsername is', uniqueUsername)
+        console.log('went into try block, uniqueUsername is: ', uniqueUsername);
+        console.log('null = input username does not exist in database');
 
         if (uniqueUsername !== null) {
             console.log('username already exists');
@@ -43,9 +44,11 @@ userController.createUser = async (req, res, next) => {
             username: username, 
             password: password,
         });
-        console.log("userInformation is ", userInformation)
+        console.log('user created and stored in database');
+        console.log("userInformation is: ", userInformation)
 
         // persist
+        console.log('storing userInformation onto res.locals.user');
         res.locals.user = userInformation;
         console.log('res.locals.user: ', res.locals.user);
 
@@ -54,6 +57,7 @@ userController.createUser = async (req, res, next) => {
         console.log('account created');
 
         // return next
+        console.log('exiting userController.createUser');
         return next();
 
     } catch (err) {
@@ -81,14 +85,21 @@ userController.verifyUser = async (req, res, next) => {
     }
     // Find in database
     try {
-        const userLogin = await User.findOne( {username: username, password: password} );
-        console.log('UserfindOne is ', userLogin) 
-        if (userLogin === null) {
+        console.log('pinging database...')
+        const user = await User.findOne( {username: username, password: password} );
+        console.log('user found: ', user);
+
+        if (user === null) {
+            console.log('no such user found');
             return res.status(203).redirect('/register');
         }
-        if (userLogin) {
-            res.locals.user = userLogin;
+        if (user) {
             console.log('User logged in...cash money')
+            console.log('storing logged in user information on res.locals.user');
+            res.locals.user = user;
+            console.log('res.locals.user: ', res.locals.user);
+
+            console.log('exiting userController.verifyUser');
             return next();
         }
     } catch(err) {

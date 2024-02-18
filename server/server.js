@@ -57,7 +57,7 @@ app.post('/register', userController.createUser,(req, res) => {
   // send them to login
   // server responds with status (201) indicating user has been created
   // server responds with json() // takes JSON as input and parses it to produce a JS object
-  // client side: if (response.status === 201) then redirect to ('/log-in') using useNavigate()
+  // client side: if (response.status === 201) then redirect to ('/login') using useNavigate()
   return res.status(201).json(res.locals.user);
 })
 
