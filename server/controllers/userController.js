@@ -6,12 +6,15 @@ const userController = {};
 // Token values
 // Create a user
 userController.createUser = async (req, res, next) => {
+    console.log('went into the server')
     console.log('req.body: ', req.body);
     // Destructure the properties off the object (req.body) from the form
-    const { position, firstName, lastName, username, password, email, subscribe } = req.body;
+    const { firstName, lastName, username, password } = req.body;
+    console.log ( firstName, lastName, username, password)
 
     //saving money here $$$$
-    if (!position || !firstName || !lastName || !username || !password || !email) {
+    if (!firstName || !lastName || !username || !password) { //temp rm email and subscribed
+        console.log('went into first error')
         return next({
             log: 'missing user registration parameters',
             message: {err: 'Error occurred in userController.createUser.'},
@@ -23,6 +26,7 @@ userController.createUser = async (req, res, next) => {
     try {
         // check if username is unique
         const uniqueUsername = await User.findOne({username: username});
+        console.log('went into try block, uniqueUsername is', uniqueUsername)
 
         if (uniqueUsername !== null) {
             console.log('username already exists');
@@ -35,13 +39,12 @@ userController.createUser = async (req, res, next) => {
 
         // query the database
         const userInformation = await User.create({ 
-            position: position, 
             firstName: firstName, 
             lastName: lastName, 
             username: username, 
             password: password,
-            email: email,
         });
+        console.log("userInformation is ", userInformation)
 
         // persist
         res.locals.user = userInformation;
@@ -57,7 +60,7 @@ userController.createUser = async (req, res, next) => {
         next({
             log: `userController.createUser: ERROR ${err}`,
             status: 400,
-            message: {err: 'Error occurred in userController.createUser. Check server logs for more details.'}
+            message: {err: 'Caught error occurred in userController.createUser. Check server logs for more details.'}
         });
     }
 }
@@ -78,7 +81,8 @@ userController.verifyUser = async (req, res, next) => {
     }
     // Find in database
     try {
-        const userLogin = await User.findOne( {username: username, password: password} ); 
+        const userLogin = await User.findOne( {username: username, password: password} );
+        console.log('UserfindOne is ', userLogin) 
         if (userLogin === null) {
             return res.status(203).redirect('/register');
         }

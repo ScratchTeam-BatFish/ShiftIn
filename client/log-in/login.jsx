@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -33,31 +33,31 @@ const defaultTheme = createTheme();
 
 export default function Login() {
   // const navigate = useNavigate()
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     const data = new FormData(event.currentTarget);
+    const password = data.get('password');
+    const username = data.get('username');
     console.log({
       username: data.get('username'),
       password: data.get('password'),
     })
-    fetch('/login', {
+ 
+    try {
+      const requestedUser = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: password }),
-      })
-      .then(res => res.json()) // Here, also sending back a token 
-      // if (res.status === 200) {
-      //  navigate('../dashboard');
-      // }
-
-      .then(data => { 
-        console.log(data);
-        body.style.background = data.color;
-      })
-      .catch(err => console.log(err));
+        body: JSON.stringify({ username, password }),
+      });
+      console.log("requestedUser is ", requestedUser)
+      return requestedUser;
+    } catch (err) {
+       console.log('error is ', err);
+    }
+  
     
   };
 
