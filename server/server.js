@@ -21,7 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Connect to MongoDB
+<<<<<<< HEAD
 
+=======
+mongoose.connect('mongodb+srv://robsin:Vany6GDnj75wi7Uq@redlipped.qpavfet.mongodb.net/');
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
+>>>>>>> dev
 
 
 // handle requests for static files
@@ -30,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 // handles loading the initial html page
 app.get('/', (req, res) => {
   console.log('Request for INDEX.HTML received');
+<<<<<<< HEAD
 
   const route = path.join(__dirname, '../build/index.html');
 
@@ -45,6 +53,46 @@ app.get('/bundle.js', (req, res) => {
 
   return res.sendFile(route);
 })
+=======
+  const route = path.join(__dirname, '../build/index.html');
+  return res.sendFile(route);
+})
+
+// handles the bundle.js files in the build folder
+app.get('/bundle.js', (req, res) => {
+  console.log('Request for bundle.js received')
+  const route = path.join(__dirname, '../build/bundle.js');
+  return res.sendFile(route);
+})
+
+// Route (/register) POST
+app.post('/register', userController.createUser,(req, res, next) => {
+  console.log('routed through /register!!');
+  return res.status(200);
+})
+
+// Route (/login) POST
+app.post('/login', userController.verifyUser, (req, res) => {
+  console.log('routed through /login');
+  // Return token to client side to save to localStorage
+  return res.status(200);
+})
+
+
+
+// Global error handler
+app.use((err, req, res, next) => {
+  // defaultError object
+  const defaultError = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { error: 'An error occured'}
+  }
+  // combine empty object, defaultError, and (err) prioritizing (err)
+  const errorObject = Object.assign({}, defaultError, err);
+  return res.status(errorObject.status).json(errorObject.message);
+});
+>>>>>>> dev
 
 
 // start server listener
