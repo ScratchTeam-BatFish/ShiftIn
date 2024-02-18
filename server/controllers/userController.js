@@ -8,10 +8,10 @@ const userController = {};
 userController.createUser = async (req, res, next) => {
     console.log('req.body: ', req.body);
     // Destructure the properties off the object (req.body) from the form
-    const { position, firstName, lastName, username, password } = req.body;
+    const { position, firstName, lastName, username, password, email, subscribe } = req.body;
 
     //saving money here $$$$
-    if (!position || !firstName || !lastName || !username || !password) {
+    if (!position || !firstName || !lastName || !username || !password || !email) {
         return next({
             log: 'missing user registration parameters',
             message: {err: 'Error occurred in userController.createUser.'},
@@ -40,6 +40,7 @@ userController.createUser = async (req, res, next) => {
             lastName: lastName, 
             username: username, 
             password: password,
+            email: email,
         });
 
         // persist

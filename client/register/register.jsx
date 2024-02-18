@@ -31,33 +31,37 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Register() {
+
+  // When user clicks submit
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      username: data.get('username'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName')
     });
-    fetch('/login', {
+
+    fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: password }),
+        body: JSON.stringify({ 
+          username: username,
+          password: password
+        }),
       })
-      .then(res => res.json()) // Here, also sending back a token 
-      // if (res.status === 200) {
-      //  navigate('../dashboard');
-      // }
-
+      .then(res => res.json())
       .then(data => { 
-        console.log(data);
-        body.style.background = data.color;
+        console.log('user registered: ', data);
       })
       .catch(err => console.log(err));
-    
   };
 
+  // Render to the page
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
