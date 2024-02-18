@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter, Route, Switch, useNavigate } from 'react-router-dom';
+
 
 function Copyright(props) {
   return (
@@ -31,6 +33,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Register() {
+  // useNavigate
+  const navigate = useNavigate()
 
   // When user clicks submit
   const handleSubmit = async (event) => {
@@ -57,12 +61,15 @@ export default function Register() {
         },
         body: JSON.stringify({ firstName, lastName, username, password }),
       });
-      console.log("newUser is ", newUser)
+      console.log("newUser registered: ", newUser);
 
-      // redirect(/login);
-      // redirect here if newUser was created
       
-      return newUser;
+
+      // if response from server is not ok
+      if (!newUser.ok) throw new Error ('Registration failed');
+      
+      // else response for server is ok
+      navigate ('/login');
     } catch (err) {
        console.log('error is ', err);
     }

@@ -12,7 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Dashboard from '../dashboard/dashboard.jsx'
 
 function Copyright(props) {
   return (
@@ -32,7 +33,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -53,7 +55,12 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       console.log("requestedUser is ", requestedUser)
-      return requestedUser;
+
+      // if response from server is not ok
+      if (!requestedUser.ok) throw new Error ('Login failed');
+
+      // else response for server is ok
+      navigate ('/dashboard');
     } catch (err) {
        console.log('error is ', err);
     }

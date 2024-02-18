@@ -1,7 +1,20 @@
+//import shiftModel & userModel
+const Schedule = require('../models/shiftModel.js');
+const User = require('../models/userModel.js');
+
+
 const shiftController = {};
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
+
+    // find shift by ID
+    // check to see if it exists
+    // check to see if shift is available
+
+    // locate user by ID
+
+    //
     return next();
 }
 
