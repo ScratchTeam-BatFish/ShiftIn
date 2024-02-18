@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     
     // Extra
     startDate: String,
-    availability: String,
+    availability: Array,
     employeeId: String,
     clockinCode: Number,
     salary: Number,
