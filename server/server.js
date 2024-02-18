@@ -44,7 +44,7 @@ app.get('/bundle.js', (req, res) => {
   const route = path.join(__dirname, '../build/bundle.js');
   return res.sendFile(route);
 })
-
+// need app.get to go to dashboard?
 // Route (/register) GET 
 // app.get('/register', (req, res) => {
 //   console.log('we are in the server')
