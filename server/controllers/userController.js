@@ -9,10 +9,11 @@ userController.createUser = async (req, res, next) => {
     console.log('went into the server')
     console.log('req.body: ', req.body);
     // Destructure the properties off the object (req.body) from the form
-    const { position, firstName, lastName, username, password } = req.body;
+    // Took out position
+    const { firstName, lastName, username, password } = req.body;
 
     //saving money here $$$$
-    if (!position || !firstName || !lastName || !username || !password) {
+    if (!firstName || !lastName || !username || !password) {
         return next({
             log: 'missing user registration parameters',
             message: {err: 'Error occurred in userController.createUser.'},
