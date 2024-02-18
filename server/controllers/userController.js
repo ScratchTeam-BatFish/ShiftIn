@@ -35,6 +35,7 @@ userController.createUser = async (req, res, next) => {
 
         // testing
         console.log('user has been created: ', userInformation.username);
+        console.log('account created');
 
         // return next
         return next();
