@@ -58,6 +58,10 @@ export default function Register() {
         body: JSON.stringify({ firstName, lastName, username, password }),
       });
       console.log("newUser is ", newUser)
+
+      // redirect(/login);
+      // redirect here if newUser was created
+      
       return newUser;
     } catch (err) {
        console.log('error is ', err);

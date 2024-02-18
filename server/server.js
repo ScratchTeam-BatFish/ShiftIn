@@ -45,12 +45,14 @@ app.get('/bundle.js', (req, res) => {
   return res.sendFile(route);
 })
 
-// Route (/register) POST
+// Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
   console.log('routed through /register!!');
   // send them to login
+  // return back the res.locals.user
   return res.status(200).redirect('/log-in');
 })
+
 
 // Route (/login) POST
 app.post('/login', userController.verifyUser, (req, res) => {
