@@ -22,6 +22,16 @@ userController.createUser = async (req, res, next) => {
     // Creating user and storing into mongoDB
     try {
         // check if username is unique
+        const uniqueUsername = await User.findOne({username: username});
+
+        if (uniqueUsername !== null) {
+            console.log('username already exists');
+            return next({
+                log: 'userController.createUser error. Username already exists.',
+                status: 400,
+                message: { err: 'username already exists'}
+            });
+        } 
 
         // query the database
         const userInformation = await User.create({ 
