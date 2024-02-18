@@ -45,6 +45,12 @@ app.get('/bundle.js', (req, res) => {
   return res.sendFile(route);
 })
 
+// Route (/register) GET 
+// app.get('/register', (req, res) => {
+//   console.log('we are in the server')
+//   return res.status(200).send('GET request to /register');
+// })
+
 // Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
   console.log('routed through /register');
@@ -60,8 +66,8 @@ app.post('/register', userController.createUser,(req, res) => {
 app.post('/login', userController.verifyUser, (req, res) => {
   console.log('routed through /login');
   // Return token to client side to save to localStorage
-  // send to home page?
-  return res.status(200);
+  // server responds with status (202) indicating user has been accepted
+  return res.status(202).json(res.locals.user);
 })
 
 
@@ -79,6 +85,12 @@ app.use((err, req, res, next) => {
   return res.status(errorObject.status).json(errorObject.message);
 });
 
+
+// ??? Super critical
+// After all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 // start server listener
 app.listen(PORT, () => {
