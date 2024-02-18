@@ -36,6 +36,7 @@ export default function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log("data is", data)
     const email = data.get('email');
     const password = data.get('password');
     const username = data.get('username');
@@ -43,29 +44,24 @@ export default function Register() {
     const lastName = data.get('lastName');
 
     console.log('username: ', username);
-    console.log('password: ');
+    console.log('password: ', password);
+    console.log('firstName: ', firstName);
+    console.log('lastName: ', lastName);
+    console.log('email', email)
 
     try {
-
-    } catch (err) {
-
-    }
-
-    await fetch('/register', {
+      const newUser = await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          username: username,
-          password: password
-        }),
-      })
-      .then(res => res.json())
-      .then(data => { 
-        console.log('user registered: ', data);
-      })
-      .catch(err => console.log(err));
+        body: JSON.stringify({ firstName, lastName, username, password }),
+      });
+      console.log("newUser is ", newUser)
+      return newUser;
+    } catch (err) {
+       console.log('error is ', err);
+    }
   };
 
   // Render to the page
