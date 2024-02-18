@@ -45,8 +45,8 @@ app.get('/bundle.js', (req, res) => {
 })
 
 // Route (/register) POST
-app.post('/register', (req, res) => {
-  console.log('routed through /register');
+app.post('/register', userController.createUser,(req, res, next) => {
+  console.log('routed through /register!!');
   return res.status(200);
 })
 
@@ -55,7 +55,22 @@ app.post('/login', userController.verifyUser, (req, res) => {
   console.log('routed through /login');
   // Return token to client side to save to localStorage
   return res.status(200);
-}) 
+})
+
+
+
+// Global error handler
+app.use((err, req, res, next) => {
+  // defaultError object
+  const defaultError = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { error: 'An error occured'}
+  }
+  // combine empty object, defaultError, and (err) prioritizing (err)
+  const errorObject = Object.assign({}, defaultError, err);
+  return res.status(errorObject.status).json(errorObject.message);
+});
 
 
 // start server listener
