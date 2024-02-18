@@ -57,7 +57,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
   console.log('routed through /login');
   // Return token to client side to save to localStorage
   // send to home page?
-  return res.status(200);
+  return res.status(200).redirect('/dashboard');
 })
 
 

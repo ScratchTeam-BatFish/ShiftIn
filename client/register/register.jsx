@@ -38,6 +38,24 @@ export default function Register() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: password }),
+      })
+      .then(res => res.json()) // Here, also sending back a token 
+      // if (res.status === 200) {
+      //  navigate('../dashboard');
+      // }
+
+      .then(data => { 
+        console.log(data);
+        body.style.background = data.color;
+      })
+      .catch(err => console.log(err));
+    
   };
 
   return (
@@ -79,6 +97,16 @@ export default function Register() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>
