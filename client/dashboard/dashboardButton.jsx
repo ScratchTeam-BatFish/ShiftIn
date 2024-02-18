@@ -298,77 +298,77 @@
 
 
 
-import React, { useState } from 'react';
-import { Box, Button, Container, Grid, Typography, ThemeProvider } from '@mui/material';
-import customTheme from '../themes/customTheme.js';
+// import React, { useState } from 'react';
+// import { Box, Button, Container, Grid, Typography, ThemeProvider } from '@mui/material';
+// import customTheme from '../customTheme.js';
 
-function Dashboard() {
-  const [myShifts, setMyShifts] = useState([{}]);
-  const [availableShifts, setAvailableShifts] = useState([{}]);
+// function Dashboard() {
+//   const [myShifts, setMyShifts] = useState([{}]);
+//   const [availableShifts, setAvailableShifts] = useState([{}]);
 
-  const addShift = (setShifts) => {
-    setShifts((prevShifts) => [...prevShifts, {}]);
-  };
+//   const addShift = (setShifts) => {
+//     setShifts((prevShifts) => [...prevShifts, {}]);
+//   };
 
-  const removeShift = (setShifts) => {
-    setShifts((prevShifts) => {
-      const newShifts = [...prevShifts];
-      newShifts.pop();
-      return newShifts;
-    });
-  };
+//   const removeShift = (setShifts) => {
+//     setShifts((prevShifts) => {
+//       const newShifts = [...prevShifts];
+//       newShifts.pop();
+//       return newShifts;
+//     });
+//   };
 
-  return (
-    <ThemeProvider theme={customTheme}>
-      <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
-          <Typography variant="h6" component="div">
-            Header
-          </Typography>
-        </Box>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Typography variant="h6" component="div">
-                My Shifts
-              </Typography>
-              {myShifts.map((_, index) => (
-                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
-                  <Typography variant="body1" component="div">
-                    Shift {index + 1}
-                  </Typography>
-                </Box>
-              ))}
-              <Button onClick={() => addShift(setMyShifts)}>Add Shift</Button>
-              <Button onClick={() => removeShift(setMyShifts)}>Remove Shift</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h6" component="div">
-                Available Shifts
-              </Typography>
-              {availableShifts.map((_, index) => (
-                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
-                  <Typography variant="body1" component="div">
-                    Shift {index + 1}
-                  </Typography>
-                </Box>
-              ))}
-              <Button onClick={() => addShift(setAvailableShifts)}>Add Shift</Button>
-              <Button onClick={() => removeShift(setAvailableShifts)}>Remove Shift</Button>
-            </Grid>
-          </Grid>
-        </Container>
-        <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
-          <Typography variant="h6" component="div">
-            Footer
-          </Typography>
-        </Box>
-      </Box>
-    </ThemeProvider>
-  );
-}
+//   return (
+//     <ThemeProvider theme={customTheme}>
+//       <Box sx={{ flexGrow: 1 }}>
+//         <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
+//           <Typography variant="h6" component="div">
+//             Header
+//           </Typography>
+//         </Box>
+//         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+//           <Grid container spacing={3}>
+//             <Grid item xs={6}>
+//               <Typography variant="h6" component="div">
+//                 My Shifts
+//               </Typography>
+//               {myShifts.map((_, index) => (
+//                 <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+//                   <Typography variant="body1" component="div">
+//                     Shift {index + 1}
+//                   </Typography>
+//                 </Box>
+//               ))}
+//               <Button onClick={() => addShift(setMyShifts)}>Add Shift</Button>
+//               <Button onClick={() => removeShift(setMyShifts)}>Remove Shift</Button>
+//             </Grid>
+//             <Grid item xs={6}>
+//               <Typography variant="h6" component="div">
+//                 Available Shifts
+//               </Typography>
+//               {availableShifts.map((_, index) => (
+//                 <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+//                   <Typography variant="body1" component="div">
+//                     Shift {index + 1}
+//                   </Typography>
+//                 </Box>
+//               ))}
+//               <Button onClick={() => addShift(setAvailableShifts)}>Add Shift</Button>
+//               <Button onClick={() => removeShift(setAvailableShifts)}>Remove Shift</Button>
+//             </Grid>
+//           </Grid>
+//         </Container>
+//         <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
+//           <Typography variant="h6" component="div">
+//             Footer
+//           </Typography>
+//         </Box>
+//       </Box>
+//     </ThemeProvider>
+//   );
+// }
 
-export default Dashboard;
+// export default Dashboard;
 
 
 
