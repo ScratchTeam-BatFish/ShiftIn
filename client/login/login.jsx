@@ -60,6 +60,7 @@ export default function Login() {
       if (!requestedUser.ok) throw new Error ('Login failed');
 
       // else response for server is ok
+      console.log('---> navigating to /dashboard');
       navigate ('/dashboard');
     } catch (err) {
        console.log('error is ', err);
