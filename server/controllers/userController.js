@@ -21,6 +21,23 @@ userController.createUser = async (req, res, next) => {
 
     // Creating user and storing into mongoDB
     try {
+        // await
+        const userInformation = await User.create({ 
+            position, 
+            firstName, 
+            lastName, 
+            username, 
+            password,
+        });
+
+        // persist
+        res.locals.user = userInformation;
+
+        // testing
+        console.log('user has been created: ', userInformation.username);
+
+        // return next
+        return next();
 
     } catch (err) {
         next({
@@ -29,9 +46,6 @@ userController.createUser = async (req, res, next) => {
             message: {err: 'Error occurred in controller.createUser. Check server logs for more details.'}
         });
     }
-
-    
-    return next();
 }
 
 // Verify a user
