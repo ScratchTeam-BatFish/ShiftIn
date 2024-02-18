@@ -21,7 +21,7 @@ userController.createUser = async (req, res, next) => {
 
     // Creating user and storing into mongoDB
     try {
-
+        
     } catch (err) {
         next({
             log: `userController.createUser: ERROR ${err}`,
