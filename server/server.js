@@ -47,14 +47,16 @@ app.get('/bundle.js', (req, res) => {
 
 // Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
-  console.log('routed through /register!!');
+  console.log('routed through /register');
   // send them to login
-  // return back the res.locals.user
-  return res.status(200).redirect('/log-in');
+  // server responds with status (201) indicating user has been created
+  // server responds with json() // takes JSON as input and parses it to produce a JS object
+  // client side: if (response.status === 201) then redirect to ('/log-in')
+  return res.status(201).json(res.locals.user);
 })
 
 
-// Route (/login) POST
+// Route (/login) POST / Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
   console.log('routed through /login');
   // Return token to client side to save to localStorage
