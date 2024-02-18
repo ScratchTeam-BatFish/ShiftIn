@@ -23,6 +23,7 @@ userController.createUser = async (req, res, next) => {
 
     // Creating user and storing into mongoDB
     try {
+        console.log('querying database...');
         // check if username is unique
         const uniqueUsername = await User.findOne({username: username});
         console.log('went into try block, uniqueUsername is: ', uniqueUsername);
@@ -45,7 +46,7 @@ userController.createUser = async (req, res, next) => {
             password: password,
         });
         console.log('user created and stored in database');
-        console.log("userInformation is: ", userInformation)
+        // console.log("userInformation is: ", userInformation)
 
         // persist
         console.log('storing userInformation onto res.locals.user');
@@ -85,7 +86,7 @@ userController.verifyUser = async (req, res, next) => {
     }
     // Find in database
     try {
-        console.log('pinging database...')
+        console.log('querying database...')
         const user = await User.findOne( {username: username, password: password} );
         console.log('user found: ', user);
 
