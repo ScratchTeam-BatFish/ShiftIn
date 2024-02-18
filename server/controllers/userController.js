@@ -9,12 +9,11 @@ userController.createUser = async (req, res, next) => {
     console.log('went into the server')
     console.log('req.body: ', req.body);
     // Destructure the properties off the object (req.body) from the form
+    // Took out position
     const { firstName, lastName, username, password } = req.body;
-    console.log ( firstName, lastName, username, password)
 
     //saving money here $$$$
-    if (!firstName || !lastName || !username || !password) { //temp rm email and subscribed
-        console.log('went into first error')
+    if (!firstName || !lastName || !username || !password) {
         return next({
             log: 'missing user registration parameters',
             message: {err: 'Error occurred in userController.createUser.'},
@@ -60,7 +59,7 @@ userController.createUser = async (req, res, next) => {
         next({
             log: `userController.createUser: ERROR ${err}`,
             status: 400,
-            message: {err: 'Caught error occurred in userController.createUser. Check server logs for more details.'}
+            message: {err: 'Error occurred in controller.createUser. Check server logs for more details.'}
         });
     }
 }
