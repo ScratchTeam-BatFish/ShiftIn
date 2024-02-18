@@ -1,7 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "./style.css";
-import "./style.scss";
+import Dashboard from './dashboard/dashboard.jsx';
+import Login  from './log-in/login.jsx';
+import Register from './register/register.jsx';
 
 const mountNode = document.getElementById("root");
-createRoot(mountNode).render('hi');
+createRoot(mountNode).render(<Register />);
