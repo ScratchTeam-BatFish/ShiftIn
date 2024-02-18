@@ -63,7 +63,7 @@ app.post('/register', userController.createUser,(req, res, next) => {
 app.use((err, req, res, next) => {
   // defaultError object
   const defaultError = {
-    log: 'express error handler caught unknown middleware error',
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
     message: { error: 'An error occured'}
   }
