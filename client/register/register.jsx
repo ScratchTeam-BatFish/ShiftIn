@@ -33,18 +33,25 @@ const defaultTheme = createTheme();
 export default function Register() {
 
   // When user clicks submit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      username: data.get('username'),
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName')
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+    const username = data.get('username');
+    const firstName = data.get('firstName');
+    const lastName = data.get('lastName');
 
-    fetch('/register', {
+    console.log('username: ', username);
+    console.log('password: ');
+
+    try {
+
+    } catch (err) {
+
+    }
+
+    await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
