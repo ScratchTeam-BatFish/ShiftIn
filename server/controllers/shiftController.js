@@ -7,7 +7,7 @@ const shiftController = {};
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
-
+console.log('req.body', req.body)
     // find shift by ID
     // check to see if it exists
     // check to see if shift is available

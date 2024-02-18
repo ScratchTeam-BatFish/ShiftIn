@@ -51,6 +51,12 @@ app.get('/bundle.js', (req, res) => {
 //   return res.status(200).send('GET request to /register');
 // })
 
+// Route (/register) GET 
+// app.get('/register', (req, res) => {
+//   console.log('we are in the server')
+//   return res.status(200).send('GET request to /register');
+// })
+
 // Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
   console.log('---> routed through /register\n');
@@ -63,9 +69,12 @@ app.post('/register', userController.createUser,(req, res) => {
 
 
 // Route (/login) POST / Login a user
+// Route (/login) POST / Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
+  // server responds with status (202) indicating user has been accepted
+  return res.status(202).json(res.locals.user);
   // server responds with status (202) indicating user has been accepted
   return res.status(202).json(res.locals.user);
 })
@@ -85,6 +94,12 @@ app.use((err, req, res, next) => {
   return res.status(errorObject.status).json(errorObject.message);
 });
 
+
+// ??? Super critical
+// After all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 // ??? Super critical
 // After all routes
