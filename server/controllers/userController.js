@@ -47,6 +47,7 @@ userController.createUser = async (req, res, next) => {
 
         // persist
         res.locals.user = userInformation;
+        console.log('res.locals.user: ', res.locals.user);
 
         // testing
         console.log('user has been created: ', userInformation.username);

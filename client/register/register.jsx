@@ -54,21 +54,26 @@ export default function Register() {
     console.log('email', email)
 
     try {
-      const newUser = await fetch('/register', {
+      const response = await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstName, lastName, username, password }),
       });
-      console.log("newUser registered: ", newUser);
 
-      
+      // quick check if response from server is NOT ok
+      if (!response.ok) throw new Error ('Registration failed');
 
-      // if response from server is not ok
-      if (!newUser.ok) throw new Error ('Registration failed');
+      // console log the response object
+      console.log("response : ", response);
+      console.log('newUser registered');
+
+      // parse the JSON response body to access the user object
+      const user = await response.json();
+      console.log('new user registration details: ', user);
       
-      // else response for server is ok
+      // flow to ('/login)
       navigate ('/login');
     } catch (err) {
        console.log('error is ', err);
