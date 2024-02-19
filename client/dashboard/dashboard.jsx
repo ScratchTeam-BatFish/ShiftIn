@@ -3,12 +3,12 @@ import Button from '@mui/material/Button';
 
 const Dashboard = () => {
 
-    return (
-        <div><Button variant="contained">Contained</Button></div>
-    )
-}
+//     return (
+//         <div><Button variant="contained">Contained</Button></div>
+//     )
+// }
 
-export default Dashboard;
+// export default Dashboard;
 
 // import * as React from 'react';
 // import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -74,11 +74,17 @@ export default Dashboard;
 // })(({ theme, open }) => ({
 //   // Sets the z-index of the AppBar component to be one level higher than the z-index of the drawer
 //   zIndex: theme.zIndex.drawer + 1,
-//   // 
+//   // Defines a transition effect for changes in width and margin properties of the AppBar.
+//   // uses the create method from the transitions object in the theme to create a transition with specified easing and duration.
 //   transition: theme.transitions.create(['width', 'margin'], {
+//     // The easing property specifies the rate of change of the transition effect.
 //     easing: theme.transitions.easing.sharp,
+//     // The duration property specifies the duration of the transition effect.
 //     duration: theme.transitions.duration.leavingScreen,
 //   }),
+//   // This is a conditional spread operator that includes additional styles only if the open prop is truthy.
+//   // dynamically adjusts the marginLeft and width properties of the AppBar based on whether the drawer is open or closed.
+//   // When the drawer is open, it sets the marginLeft to the drawerWidth and adjusts the width to accommodate the open drawer.
 //   ...(open && {
 //     marginLeft: drawerWidth,
 //     width: `calc(100% - ${drawerWidth}px)`,
@@ -89,24 +95,40 @@ export default Dashboard;
 //   }),
 // }));
 
+// /*
+
+// This following line creates a styled component based on the MuiDrawer component from Material-UI. It also specifies a function shouldForwardProp that filters out the prop named 'open'. This means that the prop 'open' will not be forwarded to the underlying MuiDrawer component. This is useful for preventing certain props from being passed down to DOM elements.
+
+// */
+
+
 // const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+//   // The following arrow function receives the theme and open props as arguments and returns an object containing CSS styles for the Drawer component.
+//   // It uses destructuring to extract theme and open from the props.
 //   ({ theme, open }) => ({
+//     // The following CSS properties are applied to the MuiDrawer component.
 //     '& .MuiDrawer-paper': {
 //       position: 'relative',
 //       whiteSpace: 'nowrap',
 //       width: drawerWidth,
+//       // The following conditional spread operator includes additional styles only if the open prop is truthy.
 //       transition: theme.transitions.create('width', {
 //         easing: theme.transitions.easing.sharp,
 //         duration: theme.transitions.duration.enteringScreen,
 //       }),
+//       // dynamically adjusts the width of the drawer based on whether it is open or closed.
 //       boxSizing: 'border-box',
+//       // When the drawer is open, it sets the width to the drawerWidth.
 //       ...(!open && {
 //         overflowX: 'hidden',
 //         transition: theme.transitions.create('width', {
 //           easing: theme.transitions.easing.sharp,
 //           duration: theme.transitions.duration.leavingScreen,
 //         }),
+//         // When the drawer is closed, it sets the width to 0.
+//         // This effectively hides the drawer when it is closed.
 //         width: theme.spacing(7),
+//         // The following CSS properties are applied to the MuiDrawer component.
 //         [theme.breakpoints.up('sm')]: {
 //           width: theme.spacing(9),
 //         },
@@ -119,7 +141,6 @@ export default Dashboard;
 // const defaultTheme = createTheme();
 
 // export default function Dashboard() {
-
 //   const [open, setOpen] = React.useState(true);
 //   const toggleDrawer = () => {
 //     setOpen(!open);
@@ -267,3 +288,87 @@ export default Dashboard;
 //     </ThemeProvider>
 //   );
 // }
+
+
+
+
+
+// Simplified version of the Dashboard component below  that is closer to the skeleton that we are looking for
+
+
+
+
+import React, { useState } from 'react';
+import { Box, Button, Container, Grid, Typography, ThemeProvider } from '@mui/material';
+import customTheme from '../themes/customTheme.js';
+
+function Dashboard() {
+  const [myShifts, setMyShifts] = useState([{}]);
+  const [availableShifts, setAvailableShifts] = useState([{}]);
+
+  const addShift = (setShifts) => {
+    setShifts((prevShifts) => [...prevShifts, {}]);
+  };
+
+  const removeShift = (setShifts) => {
+    setShifts((prevShifts) => {
+      const newShifts = [...prevShifts];
+      newShifts.pop();
+      return newShifts;
+    });
+  };
+
+  return (
+    <ThemeProvider theme={customTheme}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
+          <Typography variant="h6" component="div">
+            Header
+          </Typography>
+        </Box>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <Typography variant="h6" component="div">
+                My Shifts
+              </Typography>
+              {myShifts.map((_, index) => (
+                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+                  <Typography variant="body1" component="div">
+                    Shift {index + 1}
+                  </Typography>
+                </Box>
+              ))}
+              <Button onClick={() => addShift(setMyShifts)}>Add Shift</Button>
+              <Button onClick={() => removeShift(setMyShifts)}>Remove Shift</Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h6" component="div">
+                Available Shifts
+              </Typography>
+              {availableShifts.map((_, index) => (
+                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+                  <Typography variant="body1" component="div">
+                    Shift {index + 1}
+                  </Typography>
+                </Box>
+              ))}
+              <Button onClick={() => addShift(setAvailableShifts)}>Add Shift</Button>
+              <Button onClick={() => removeShift(setAvailableShifts)}>Remove Shift</Button>
+            </Grid>
+          </Grid>
+        </Container>
+        <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
+          <Typography variant="h6" component="div">
+            Footer
+          </Typography>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
+}
+
+export default Dashboard;
+
+
+
