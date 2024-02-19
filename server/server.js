@@ -2,12 +2,12 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose');
-
 const jwt = require ('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 // Cors configuration - future
 // Access to process.env variables - future
-//secret key variable
+
+//secret key variable: should be in a third party NOT safe to have here.
 const secretKey = 'secretKey123';
 // Import controllers
 const userController = require('./controllers/userController');
@@ -22,7 +22,7 @@ const PORT = 3000;
 // handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://robsin:Vany6GDnj75wi7Uq@redlipped.qpavfet.mongodb.net/');
@@ -48,7 +48,10 @@ app.get('/bundle.js', (req, res) => {
   const route = path.join(__dirname, '../build/bundle.js');
   return res.sendFile(route);
 })
-// need app.get to go to dashboard?
+// need get router to get shifts array and send back to the front end
+app.get('/shifts', (req, res) => {
+  return res.sendFile();
+})
 // Route (/register) GET 
 // app.get('/register', (req, res) => {
 //   console.log('we are in the server')
@@ -83,6 +86,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
   //created token for each user with 5min expiration
   const token = jwt.sign({username: username}, secretKey, { expiresIn: '5mins'});
   console.log('token', token)
+  // created cookie using token
   res.cookie('token', token, { httpOnly: true, maxAge: 300000});
   
   console.log('cookies', res.cookie)
