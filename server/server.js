@@ -69,16 +69,21 @@ app.post('/register', userController.createUser,(req, res) => {
 
 
 // Route (/login) POST / Login a user
-// Route (/login) POST / Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
   // server responds with status (202) indicating user has been accepted
   return res.status(202).json(res.locals.user);
-  // server responds with status (202) indicating user has been accepted
-  return res.status(202).json(res.locals.user);
 })
 
+
+// Route (/dashboard) GET / Render dashboard
+app.get('/dashboard', shiftController.getShifts, (req, res) => {
+  console.log('---> routed through /dashboard\n');
+
+  // server responds with status (202) indicated user has been accepted
+  return res.status(202).json(res.locals.shifts);
+})
 
 
 // Global error handler
@@ -94,12 +99,6 @@ app.use((err, req, res, next) => {
   return res.status(errorObject.status).json(errorObject.message);
 });
 
-
-// ??? Super critical
-// After all routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
 
 // ??? Super critical
 // After all routes

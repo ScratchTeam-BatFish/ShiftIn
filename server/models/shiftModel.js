@@ -4,16 +4,13 @@ const mongoose = require('mongoose');
 //create schema for shifts
 const shiftSchema = new mongoose.Schema ({
   // required
-  date: String,
-  employee: {
+  date: {
     type: String, required: true, 
   },
+  employee: String,
   available: Boolean,
-  userId: {
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
-    required: true
-},
+  userId: String,
+
   // extra
   // start_time: 
   // end_time: 

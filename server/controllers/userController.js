@@ -57,7 +57,7 @@ userController.createUser = async (req, res, next) => {
         // testing
         console.log('user has been created: ', userInformation.username);
 
-        // return next
+        // return next`
         console.log('exiting userController.createUser');
         return next();
 
@@ -98,6 +98,7 @@ userController.verifyUser = async (req, res, next) => {
             console.log('User logged in...cash money')
             console.log('storing logged in user information on res.locals.user');
             res.locals.user = user;
+            res.locals.id = user.id;
             console.log('res.locals.user: ', res.locals.user);
 
             console.log('exiting userController.verifyUser');
