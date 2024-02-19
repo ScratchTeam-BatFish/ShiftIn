@@ -7,7 +7,12 @@
 //         <div><Button variant="contained">Contained</Button></div>
 //     )
 // }
+//     return (
+//         <div><Button variant="contained">Contained</Button></div>
+//     )
+// }
 
+// export default Dashboard;
 // export default Dashboard;
 
 // import * as React from 'react';
@@ -74,11 +79,17 @@
 // })(({ theme, open }) => ({
 //   // Sets the z-index of the AppBar component to be one level higher than the z-index of the drawer
 //   zIndex: theme.zIndex.drawer + 1,
-//   // 
+//   // Defines a transition effect for changes in width and margin properties of the AppBar.
+//   // uses the create method from the transitions object in the theme to create a transition with specified easing and duration.
 //   transition: theme.transitions.create(['width', 'margin'], {
+//     // The easing property specifies the rate of change of the transition effect.
 //     easing: theme.transitions.easing.sharp,
+//     // The duration property specifies the duration of the transition effect.
 //     duration: theme.transitions.duration.leavingScreen,
 //   }),
+//   // This is a conditional spread operator that includes additional styles only if the open prop is truthy.
+//   // dynamically adjusts the marginLeft and width properties of the AppBar based on whether the drawer is open or closed.
+//   // When the drawer is open, it sets the marginLeft to the drawerWidth and adjusts the width to accommodate the open drawer.
 //   ...(open && {
 //     marginLeft: drawerWidth,
 //     width: `calc(100% - ${drawerWidth}px)`,
@@ -89,24 +100,40 @@
 //   }),
 // }));
 
+// /*
+
+// This following line creates a styled component based on the MuiDrawer component from Material-UI. It also specifies a function shouldForwardProp that filters out the prop named 'open'. This means that the prop 'open' will not be forwarded to the underlying MuiDrawer component. This is useful for preventing certain props from being passed down to DOM elements.
+
+// */
+
+
 // const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+//   // The following arrow function receives the theme and open props as arguments and returns an object containing CSS styles for the Drawer component.
+//   // It uses destructuring to extract theme and open from the props.
 //   ({ theme, open }) => ({
+//     // The following CSS properties are applied to the MuiDrawer component.
 //     '& .MuiDrawer-paper': {
 //       position: 'relative',
 //       whiteSpace: 'nowrap',
 //       width: drawerWidth,
+//       // The following conditional spread operator includes additional styles only if the open prop is truthy.
 //       transition: theme.transitions.create('width', {
 //         easing: theme.transitions.easing.sharp,
 //         duration: theme.transitions.duration.enteringScreen,
 //       }),
+//       // dynamically adjusts the width of the drawer based on whether it is open or closed.
 //       boxSizing: 'border-box',
+//       // When the drawer is open, it sets the width to the drawerWidth.
 //       ...(!open && {
 //         overflowX: 'hidden',
 //         transition: theme.transitions.create('width', {
 //           easing: theme.transitions.easing.sharp,
 //           duration: theme.transitions.duration.leavingScreen,
 //         }),
+//         // When the drawer is closed, it sets the width to 0.
+//         // This effectively hides the drawer when it is closed.
 //         width: theme.spacing(7),
+//         // The following CSS properties are applied to the MuiDrawer component.
 //         [theme.breakpoints.up('sm')]: {
 //           width: theme.spacing(9),
 //         },
@@ -119,7 +146,6 @@
 // const defaultTheme = createTheme();
 
 // export default function Dashboard() {
-
 //   const [open, setOpen] = React.useState(true);
 //   const toggleDrawer = () => {
 //     setOpen(!open);
