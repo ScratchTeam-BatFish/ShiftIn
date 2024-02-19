@@ -80,24 +80,26 @@ shiftController.assignShift = async (req, res, next) => {
         console.log('storing shift information on res.locals.shift: ', res.locals.shift)
 
         // testing
-        console.log(`shift on ${res.locals.shift.date} created and assigned to ${res.locals.shift.employee}`);
+        const name = (res.locals.shift.employee || 'no one');
+        console.log(`shift on ${res.locals.shift.date} created and assigned to ${name}`);
 
         // return next
         console.log('exiting shiftController.assignShift');
         return next();
 
     } catch (err) {
-
+        return next({
+            log: `shiftController.assignShift: ERROR ${err}`,
+            status: 400,
+            message: {err: 'Error occurred in shiftController.assignShift. Check server logs for more details.'}
+        });
     }
-    
-    
-
 }
 
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
-// console.log('req.body', req.body)
+    // console.log('req.body', req.body)
     // find shift by ID
     // check to see if it exists
     // check to see if shift is available

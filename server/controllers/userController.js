@@ -62,7 +62,7 @@ userController.createUser = async (req, res, next) => {
         return next();
 
     } catch (err) {
-        next({
+        return next({
             log: `userController.createUser: ERROR ${err}`,
             status: 400,
             message: {err: 'Error occurred in controller.createUser. Check server logs for more details.'}
