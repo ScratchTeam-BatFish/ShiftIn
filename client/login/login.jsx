@@ -14,8 +14,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
 import Dashboard from '../dashboard/dashboard.jsx'
-import { useNavigate } from 'react-router-dom'
-import Dashboard from '../dashboard/dashboard.jsx'
 
 function Copyright(props) {
   return (

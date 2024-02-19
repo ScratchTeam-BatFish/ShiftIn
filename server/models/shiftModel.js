@@ -3,15 +3,24 @@ const mongoose = require('mongoose');
 
 //create schema for shifts
 const shiftSchema = new mongoose.Schema ({
-  date: {timeStamps: true },
-  start_time: { Date, },
-  end_time: { Date, },
-  position: { type: String, required: true} ,
-  // employee: { type: /*ref employee schema here*/, ref: 'user' }
+  // required
+  date: String,
+  employee: {
+    type: String, required: true, 
+  },
+  available: Boolean,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true
+},
+  // extra
+  // start_time: 
+  // end_time: 
 });
 
 
-const Schedule = mongoose.model('Schedule', shiftSchema);
+const Shift = mongoose.model('Shift', shiftSchema);
 
 // export schema
-module.exports = Schedule;
+module.exports = Shift;
