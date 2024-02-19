@@ -37,8 +37,6 @@ const defaultTheme = createTheme();
 export default function Login() {
   const navigate = useNavigate();
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     

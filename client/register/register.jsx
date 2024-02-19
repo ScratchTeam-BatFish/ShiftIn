@@ -37,8 +37,6 @@ const defaultTheme = createTheme();
 export default function Register() {
   // useNavigate
   const navigate = useNavigate()
-  // useNavigate
-  const navigate = useNavigate()
 
   // When user clicks submit
   const handleSubmit = async (event) => {
