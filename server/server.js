@@ -86,12 +86,30 @@ app.get('/dashboard', shiftController.getShifts, (req, res) => {
 })
 
 
+// Route (/drop) PATCH // Drop a shift
+app.patch('/drop', shiftController.dropShift, (req, res) => {
+  console.log('---> routed through /drop');
+  // server responds with status (202) indicating update to shift has been accepted
+  // server responds with shift that was picked up
+  return res.status(202).json({});
+})
+
+
+// Route (/pickup) PATCH // Pickup a shift
+app.patch('/pickup', shiftController.pickupShift, (req, res) => {
+  console.log('---> routed through /pickup');
+  // server responds with status (202) indicating update to shift has been accepted
+  // server responds with shift that was dropped
+  return res.status(202).json({});
+})
+
+
 // Route (/assign) POST
 app.post('/assign', shiftController.assignShift, (req, res) => {
   // server responds with status (201) indicating shift has been created
   // server responds with shift information of the new shift created
   console.log('---> routed through /assign');
-  return res.status(201).json({});
+  return res.status(201).json(res.locals.shift);
 })
 
 

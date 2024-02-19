@@ -99,19 +99,17 @@ shiftController.assignShift = async (req, res, next) => {
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
-    // console.log('req.body', req.body)
-    // find shift by ID
-    // check to see if it exists
-    // check to see if shift is available
+    console.log('PATCH request to /pickup');
+    console.log('req.body contains: ', req.body);
 
-    // locate user by ID
-
-    //
     return next();
 }
 
 // Drop a shift
 shiftController.dropShift = (req, res, next) => {
+    console.log('PATCH request to /drop');
+    console.log('req.body contains: ', req.body);
+    
     return next();
 }
 
