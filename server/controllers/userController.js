@@ -1,4 +1,6 @@
-// Import
+// Import jwt, possible express and cookie parser
+// const jwt = require ('jsonwebtoken');
+// const cookieParser = require('cookie-parser');
 const User = require('../models/userModel.js');
 
 const userController = {};
@@ -89,7 +91,7 @@ userController.verifyUser = async (req, res, next) => {
         console.log('querying database...')
         const user = await User.findOne( {username: username, password: password} );
         console.log('user found: ', user);
-
+        
         if (user === null) {
             console.log('no such user found');
             return res.status(203).redirect('/register');
@@ -97,10 +99,10 @@ userController.verifyUser = async (req, res, next) => {
         if (user) {
             console.log('User logged in...cash money')
             console.log('storing logged in user information on res.locals.user');
-            res.locals.user = user;
-            res.locals.id = user.id;
-            console.log('res.locals.user: ', res.locals.user);
-
+    
+            res.locals.userInfo = user;
+            
+            console.log('res.locals.userInfo: ', res.locals.userInfo);
             console.log('exiting userController.verifyUser');
             return next();
         }

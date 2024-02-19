@@ -8,7 +8,7 @@ const shiftController = {};
 // Create a shift
 shiftController.getShifts = async (req, res, next) => {
     // res.body should have userId
-    const {userId} = res.body; // note: we have to decide where
+    const {userId} = req.body; // note: we have to decide where
 
     // Save $$$
     if (!date || !employee || !available || !userId) {
