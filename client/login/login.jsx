@@ -47,19 +47,25 @@ export default function Login() {
     })
  
     try {
-      const requestedUser = await fetch('/login', {
+      console.log('sending request to server...')
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });
-      console.log("requestedUser is ", requestedUser)
 
-      // if response from server is not ok
-      if (!requestedUser.ok) throw new Error ('Login failed');
+      // quick check if response from server is NOT ok
+      if (!response.ok) throw new Error ('Login failed');
+
+      // console log the response object
+      console.log('server responded...');
+      console.log("response : ", response);
+      console.log('user verified in database');
 
       // else response for server is ok
+      console.log('---> navigating to /dashboard\n');
       navigate ('/dashboard');
     } catch (err) {
        console.log('error is ', err);
