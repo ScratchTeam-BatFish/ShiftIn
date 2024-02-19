@@ -26,7 +26,12 @@ userController.createUser = async (req, res, next) => {
     try {
         console.log('checking for unique username');
         console.log('querying database...')
+        console.log('checking for unique username');
+        console.log('querying database...')
         const uniqueUsername = await User.findOne({username: username});
+
+        console.log('uniqueUsername is: ', uniqueUsername);
+        console.log('if null, then username does not exist in database');
 
         console.log('uniqueUsername is: ', uniqueUsername);
         console.log('if null, then username does not exist in database');
@@ -47,6 +52,8 @@ userController.createUser = async (req, res, next) => {
             username: username, 
             password: password,
         });
+        console.log('user created and stored in database');
+        // console.log("userInformation is: ", userInformation)
         console.log('user created and stored in database');
         // console.log("userInformation is: ", userInformation)
 

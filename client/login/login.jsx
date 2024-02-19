@@ -49,6 +49,8 @@ export default function Login() {
     try {
       console.log('sending request to server...')
       const response = await fetch('/login', {
+      console.log('sending request to server...')
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

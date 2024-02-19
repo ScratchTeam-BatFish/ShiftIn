@@ -58,6 +58,12 @@ app.get('/bundle.js', (req, res) => {
 //   return res.status(200).send('GET request to /register');
 // })
 
+// Route (/register) GET 
+// app.get('/register', (req, res) => {
+//   console.log('we are in the server')
+//   return res.status(200).send('GET request to /register');
+// })
+
 
 // Route (/register) POST // Create a user
 app.post('/register', userController.createUser, (req, res) => {
