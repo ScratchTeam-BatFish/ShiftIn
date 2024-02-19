@@ -2,9 +2,13 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose');
+
+const jwt = require ('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 // Cors configuration - future
 // Access to process.env variables - future
-
+//secret key variable
+const secretKey = 'secretKey123';
 // Import controllers
 const userController = require('./controllers/userController');
 const tokenController = require('./controllers/tokenController');
@@ -76,10 +80,20 @@ app.post('/register', userController.createUser, (req, res) => {
 
 // Route (/login) POST // Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
-  console.log('---> routed through /login');
+  console.log('---> routed through /login\n');
+  // Return token to client side to save to localStorage
+  console.log('res.locals.userInfo', res.locals.userInfo)
+  // const username = res.locals.userInfo.username;
+  
+  const {username} = res.locals.userInfo;
+  //created token for each user with 5min expiration
+  const token = jwt.sign({username: username}, secretKey, { expiresIn: '5mins'});
+  console.log('token', token)
+  res.cookie('token', token, { httpOnly: true, maxAge: 300000});
+  
+  console.log('cookies', res.cookie)
   // server responds with status (202) indicating user has been accepted
-  // server responds with user id of the logged-in user
-  return res.status(202).json(res.locals.id);
+  return res.status(202).json(res.locals.userInfo);
 })
 
 
