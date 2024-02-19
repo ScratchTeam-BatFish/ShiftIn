@@ -73,7 +73,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
   // server responds with status (202) indicating user has been accepted
-  return res.status(202).json(res.locals.user);
+  return res.status(202).json(res.locals.id);
 })
 
 
@@ -82,7 +82,7 @@ app.get('/dashboard', shiftController.getShifts, (req, res) => {
   console.log('---> routed through /dashboard\n');
 
   // server responds with status (202) indicated user has been accepted
-  return res.status(202).json(res.locals.shifts);
+  return res.status(202).json(res.locals.shiftsArray);
 })
 
 

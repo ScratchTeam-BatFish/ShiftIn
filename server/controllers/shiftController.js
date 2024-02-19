@@ -1,4 +1,5 @@
 //import shiftModel & userModel
+const Shift = require('../models/shiftModel.js');
 const Schedule = require('../models/shiftModel.js');
 const User = require('../models/userModel.js');
 
@@ -7,22 +8,36 @@ const shiftController = {};
 
 // Create a shift
 shiftController.getShifts = async (req, res, next) => {
-    // res.body should have userId
-    const {userId} = res.body; // note: we have to decide where
+    console.log('GET request to /dashboard');
+    console.log('req.body contains: ', req.body);
 
-    // Save $$$
-    if (!date || !employee || !available || !userId) {
+    // res.body should have userId
+    const { userId } = req.body; // note: we have to decide where
+    console.log('userId: ', userId);
+
+    // Save $$$ // Check for missing parameters
+    if (!userId) {
         return next({
-            log: 'missing shift data login parameters',
+            log: 'missing user id. unable to generate user shifts',
             message: {err: 'Error occurred in shiftController.createShift.'},
             status: 400,
         });
     }
     try {
+        // query the database
         console.log('querying database...')
-        // Creating shift and storing into mongoDB
-        const shift = await Shift.create( { date: date, employee: employee, available: available, userId: userId });
-        console.log('found shifts:', shift);
+        const shiftsArray = await Shift.find({ userId: userId});
+        console.log('found shifts:', shiftsArray);
+
+        // persist the data
+        res.locals.shiftsArray = shiftsArray;
+        console.log('storing shiftsArray on res.locals.shifts: ', res.locals.shifts);
+
+        // testing
+        console.log(`${shiftsArray.length} shifts have been retrieved for user ${userId}`);
+
+        // return next
+        console.log('exiting shiftController.getShifts');
         return next();
     } catch(err) {
         return next({
