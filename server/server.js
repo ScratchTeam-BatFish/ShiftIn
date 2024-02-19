@@ -51,25 +51,39 @@ app.get('/bundle.js', (req, res) => {
 //   return res.status(200).send('GET request to /register');
 // })
 
+// Route (/register) GET 
+// app.get('/register', (req, res) => {
+//   console.log('we are in the server')
+//   return res.status(200).send('GET request to /register');
+// })
+
 // Route (/register) POST - Create a user
 app.post('/register', userController.createUser,(req, res) => {
-  console.log('routed through /register');
+  console.log('---> routed through /register\n');
   // send them to login
   // server responds with status (201) indicating user has been created
   // server responds with json() // takes JSON as input and parses it to produce a JS object
-  // client side: if (response.status === 201) then redirect to ('/log-in') using useNavigate()
+  // client side: if (response.status === 201) then redirect to ('/login') using useNavigate()
   return res.status(201).json(res.locals.user);
 })
 
 
 // Route (/login) POST / Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
-  console.log('routed through /login');
+  console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
   // server responds with status (202) indicating user has been accepted
   return res.status(202).json(res.locals.user);
 })
 
+
+// Route (/dashboard) GET / Render dashboard
+app.get('/dashboard', shiftController.getShifts, (req, res) => {
+  console.log('---> routed through /dashboard\n');
+
+  // server responds with status (202) indicated user has been accepted
+  return res.status(202).json(res.locals.shifts);
+})
 
 
 // Global error handler
