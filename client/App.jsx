@@ -35,7 +35,7 @@ const App = () => {
         <Routes>
             
           <Route path="/" element={<div>Welcome to the app! <a href="/login">Login</a> or <a href="/register">Register</a></div>} />
-           <Route path="/register" element={<Register />}> Connected in App Register Path </Route>
+          <Route path="/register" element={<Register />}> Connected in App Register Path </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
       

@@ -54,7 +54,7 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-      });
+      })
 
       // quick check if response from server is NOT ok
       if (!response.ok) throw new Error ('Login failed');
@@ -63,6 +63,10 @@ export default function Login() {
       console.log('server responded...');
       console.log("response : ", response);
       console.log('user verified in database');
+
+      // retrieving userId from server response
+      const userId = await response.json();
+      console.log('userId of logged in user: ', userId);
 
       // else response for server is ok
       console.log('---> navigating to /dashboard\n');
