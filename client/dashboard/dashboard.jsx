@@ -103,6 +103,21 @@ function Dashboard() {
       return newMyShifts;
     });
   };
+
+// Need to know the specific shiftID/documentID
+// when accept shift is clicked, we need the pickUpShift function to fire
+  // within that function we need the shiftID & employee:username
+
+
+
+const acceptShift2 = async () => {};
+
+  // const response = await fetch('');
+  // if (!response.ok) throw new Error('Unable to accept shift');
+  // const result = await response.json();
+  // console.log(result.message)
+
+
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:3000/logout');
@@ -188,7 +203,7 @@ function Dashboard() {
                         removeShift(index, setMyShifts, setAvailableShifts)
                       }
                     >
-                      Remove Shift
+                      Drop Shift
                     </Button>
                   </Card>
                 ))}
@@ -234,6 +249,7 @@ function Dashboard() {
                     <Button
                       variant="contained"
                       onClick={() =>
+                        // need pickUpShift to fire here
                         acceptShift(index, setMyShifts, setAvailableShifts)
                       }
                     >
