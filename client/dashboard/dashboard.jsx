@@ -1,7 +1,7 @@
-// import React from "react";
-// import Button from '@mui/material/Button';
+import React from "react";
+import Button from '@mui/material/Button';
 
-// const Dashboard = () => {
+const Dashboard = () => {
 
 //     return (
 //         <div><Button variant="contained">Contained</Button></div>
