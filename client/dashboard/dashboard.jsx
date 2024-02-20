@@ -20,37 +20,59 @@ function Dashboard() {
 
   useEffect(() => {
     // Fetch my shifts
-    fetchMyShifts();
-
-    // Fetch available shifts
-    fetchAvailableShifts();
+    fetchShifts();
   }, []); 
 
-  const fetchMyShifts = async () => {
-    try {
-      const response = await fetch('/my-shifts');
-      if (!response.ok) {
-        throw new Error('Failed to fetch my shifts');
-      }
-      const data = await response.json();
-      setMyShifts(data);
-    } catch (error) {
-      console.error('Error fetching my shifts:', error);
-    }
-  };
+// combine shifts into one, fetchShifts
+// input will be the url and an object of the request parameters
+// wrap in a useEffect to run on a component mount
+  // when a page loads, do the function once 
 
-  const fetchAvailableShifts = async () => {
-    try {
-      const response = await fetch('/available-shifts');
-      if (!response.ok) {
-        throw new Error('Failed to fetch available shifts');
-      }
-      const data = await response.json();
-      setAvailableShifts(data);
-    } catch (error) {
-      console.error('Error fetching available shifts:', error);
+const fetchShifts = async () => {
+  try {
+    const response = await fetch('/shifts',{
+      credentials: 'include',
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch my shifts');
     }
-  };
+    const data = await response.json();
+    // returns a nested array
+    // array at 0 index will be the shifts that belong to the user, data at index 1 will be the shift that is available
+    setMyShifts(data);
+  } catch (error) {
+    console.error('Error fetching my shifts:', error);
+  }
+};
+
+
+  // const fetchMyShifts = async () => {
+  //   try {
+  //     const response = await fetch('/my-shifts');
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch my shifts');
+  //     }
+  //     const data = await response.json();
+  //     setMyShifts(data);
+  //   } catch (error) {
+  //     console.error('Error fetching my shifts:', error);
+  //   }
+  // };
+
+  // const fetchAvailableShifts = async () => {
+  //   try {
+  //     const response = await fetch('/available-shifts');
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch available shifts');
+  //     }
+  //     const data = await response.json();
+  //     setAvailableShifts(data);
+  //   } catch (error) {
+  //     console.error('Error fetching available shifts:', error);
+  //   }
+  // };
 
   const addShift = (setShifts) => {
     setShifts((prevShifts) => [...prevShifts, {}]);
