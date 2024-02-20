@@ -115,7 +115,7 @@ function Dashboard() {
           minHeight: '100vh',
         }}
       >
-        <NavBar name="something" />
+        <NavBar name="something" loggedin='true' />
         <Box sx={{ bgcolor: 'background.paper', color: 'primary.contrastText', py: 3 }}>
           <Container maxWidth="lg">
             {myShifts.length > 0 && (
