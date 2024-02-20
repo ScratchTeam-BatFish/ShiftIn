@@ -116,10 +116,10 @@ function Dashboard() {
         }}
       >
         <NavBar name="something" />
-        <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', py: 3 }}>
+        <Box sx={{ bgcolor: 'background.paper', color: 'primary.contrastText', py: 3 }}>
           <Container maxWidth="lg">
             {myShifts.length > 0 && (
-              <Typography variant="h4" component="h1">
+              <Typography variant="h4" component="h1" color="inherit">
                 Welcome {myShifts[0].employee}
               </Typography>
             )}
@@ -159,7 +159,7 @@ function Dashboard() {
                 {availableShifts.map((shift, index) => (
                   <Card key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2, border: '1px solid #ccc' }}>
                     <Typography variant="body1" component="div">
-                      Shift {shift.date}
+                      Shift - {shift.date}
                     </Typography>
                     <Button variant="contained" onClick={() => acceptShift(index, setMyShifts, setAvailableShifts)}>
                       Accept Shift
