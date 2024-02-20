@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 
-const pages = ['Home', 'My Calendar', 'Help'];
+const pages = ['Home', 'My Calendar',  'Request Time Off', 'Help'];
 const settings = ['Account', 'My Notifications', 'Logout'];
 
 function ResponsiveAppBar(props) {
