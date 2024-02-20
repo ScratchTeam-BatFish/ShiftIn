@@ -63,18 +63,6 @@ app.get('/shifts', tokenController.authenticateToken, shiftController.getShifts,
 //   return res.status(200).send('GET request to /register');
 // })
 
-// Route (/register) GET 
-// app.get('/register', (req, res) => {
-//   console.log('we are in the server')
-//   return res.status(200).send('GET request to /register');
-// })
-
-// Route (/register) GET 
-// app.get('/register', (req, res) => {
-//   console.log('we are in the server')
-//   return res.status(200).send('GET request to /register');
-// })
-
 
 // Route (/register) POST // Create a user
 app.post('/register', userController.createUser, (req, res) => {
@@ -119,7 +107,7 @@ app.patch('/addshift', shiftController.pickupShift, (req, res) => {
 })
 
 
-// Route (/drop) PATCH // Drop a shift
+// Route (`/d`rop) PATCH // Drop a shift
 app.patch('/dropshift', shiftController.dropShift, (req, res) => {
   console.log('---> routed through /drop');
   // server responds with status (202) indicating update to shift has been accepted
@@ -128,13 +116,13 @@ app.patch('/dropshift', shiftController.dropShift, (req, res) => {
 })
 
 
-// // Route (/assign) POST
-// app.post('/assign', shiftController.assignShift, (req, res) => {
-//   // server responds with status (201) indicating shift has been created
-//   // server responds with shift information of the new shift created
-//   console.log('---> routed through /assign');
-//   return res.status(201).json(res.locals.shift);
-// })
+// Route (/assign) POST
+app.post('/assign', shiftController.assignShift, (req, res) => {
+  // server responds with status (201) indicating shift has been created
+  // server responds with shift information of the new shift created
+  console.log('---> routed through /assign');
+  return res.status(201).json(res.locals.shift);
+})
 
 // After all routes, catch all
 app.get('*', (req, res) => {

@@ -102,7 +102,7 @@ shiftController.pickupShift = async (req, res, next) => {
     console.log('req.body contains: ', req.body);
 
     // assume that we have the id of the shift
-    const documentId = '65d4508bb16cad119f9deaf7'; // attempting to pickup shift
+    const documentId = '65d4509bb16cad119f9df9d8'; // attempting to pickup shift
     // assume that we have the username of the user that is logged in
     const username = 'santa';
     
