@@ -110,20 +110,20 @@ app.post('/login', userController.verifyUser, (req, res) => {
 })
 
 
-// Route (/drop) PATCH // Drop a shift
-app.patch('/drop', shiftController.dropShift, (req, res) => {
-  console.log('---> routed through /drop');
+// Route (/pickup) PATCH // Pickup a shift
+app.patch('/addshift', shiftController.pickupShift, (req, res) => {
+  console.log('---> routed through /addshift');
   // server responds with status (202) indicating update to shift has been accepted
-  // server responds with shift that was picked up
-  return res.status(202).json({});
+  // server responds with shift that was dropped
+  return res.status(202).send('shift added');
 })
 
 
-// Route (/pickup) PATCH // Pickup a shift
-app.patch('/pickup', shiftController.pickupShift, (req, res) => {
-  console.log('---> routed through /pickup');
+// Route (/drop) PATCH // Drop a shift
+app.patch('/dropshift', shiftController.dropShift, (req, res) => {
+  console.log('---> routed through /drop');
   // server responds with status (202) indicating update to shift has been accepted
-  // server responds with shift that was dropped
+  // server responds with shift that was picked up
   return res.status(202).json({});
 })
 

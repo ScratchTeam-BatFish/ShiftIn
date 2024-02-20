@@ -97,17 +97,43 @@ shiftController.assignShift = async (req, res, next) => {
 
 
 // Pickup a shift
-shiftController.pickupShift = (req, res, next) => {
-    console.log('PATCH request to pickup');
+shiftController.pickupShift = async (req, res, next) => {
+    console.log('PATCH request to /addshift');
     console.log('req.body contains: ', req.body);
-    // find shift by ID
-    // check to see if it exists
-    // check to see if shift is available
 
-    // locate user by ID
+    // assume that we have the id of the shift
+    const documentId = '65d4508bb16cad119f9deaf7'; // attempting to pickup shift
+    // assume that we have the username of the user that is logged in
+    const username = 'santa';
+    
+    
+    try {
+        // query database
+        console.log('updating shift database...')
 
-    //
-    return next();
+        //get shifts with matching id from mongoDb
+        const matchingShifts = await Shift.findOneAndUpdate(
+            {_id: documentId}, // search criteria
+            {$set: {
+                employee: username,
+                available: false,
+            }}, // the updates
+        )
+        
+        // persist data
+        res.locals.shiftAdded = matchingShifts;
+        console.log('res.locals.shiftAdded: ', res.locals.shiftAdded);    
+
+        // return next
+        console.log('exiting shiftController.pickupShift');
+        return next();
+    } catch(err) {
+        return next({
+            log: `shiftController.pickupShift: ERROR ${err}`,
+            status: 400,
+            message: {err: 'Error occurred in shiftController.pickupShift. Check server logs for more details.'}
+        });
+    }   
 }
 
 // Drop a shift
