@@ -2,13 +2,14 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose');
-
 const jwt = require ('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 // Cors configuration - future
 // Access to process.env variables - future
-//secret key variable
-const secretKey = 'secretKey123';
+
+//secret key variable: should be in a third party NOT safe to have here. // development only
+const SECRET_KEY = 'secretKey123';
+
 // Import controllers
 const userController = require('./controllers/userController');
 const tokenController = require('./controllers/tokenController');
@@ -23,7 +24,6 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://robsin:Vany6GDnj75wi7Uq@redlipped.qpavfet.mongodb.net/');
@@ -48,9 +48,14 @@ app.get('/bundle.js', (req, res) => {
   const route = path.join(__dirname, '../build/bundle.js');
   return res.sendFile(route);
 })
-
-
-// need app.get to go to dashboard?
+// need get router to get shifts array and send back to the front end
+app.get('/shifts', tokenController.authenticateToken, shiftController.getShifts, (req, res) => {
+  console.log('---> routed through /shifts\n');
+  const shifts = [res.locals.shifts, res.locals.availableShifts];
+  console.log('shifts', shifts)
+  return res.status(200).json(shifts);
+  // json-shifts = "[ {date, employee(username), available, userId}, {}...]"
+})
 // Route (/register) GET 
 // app.get('/register', (req, res) => {
 //   console.log('we are in the server')
@@ -84,26 +89,23 @@ app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
   console.log('res.locals.userInfo', res.locals.userInfo)
-  // const username = res.locals.userInfo.username;
   
   const {username} = res.locals.userInfo;
   //created token for each user with 5min expiration
-  const token = jwt.sign({username: username}, secretKey, { expiresIn: '5mins'});
-  console.log('token', token)
-  res.cookie('token', token, { httpOnly: true, maxAge: 300000});
-  
-  console.log('cookies', res.cookie)
+  const token = jwt.sign({username: username}, SECRET_KEY, { expiresIn: '5mins'});
+  console.log('login:token:', token) // crazy long string
+  // created cookie using token
+  // sends cookie to client side after the user logins in
+  const cookie = res.cookie('token', token, { 
+    secure: true, 
+    httpOnly: true, 
+    maxAge: 300000
+  });
+  // console.log('cookie in login:', cookie.cookies);
   // server responds with status (202) indicating user has been accepted
-  return res.status(202).json(res.locals.userInfo);
-})
 
-// shiftController.getShifts,
-// Route (/dashboard) GET // Render dashboard
-app.get('/dashboard', (req, res) => {
-  console.log('---> routed through /dashboard');
-  // server responds with status (202) indicating user has been accepted
-  // server responds with array of shifts
-  return res.status(202).json(res.locals.shiftsArray);
+  //trying to send cookie 
+  return res.status(202).send('cookie sent');
 })
 
 
@@ -125,18 +127,17 @@ app.patch('/pickup', shiftController.pickupShift, (req, res) => {
 })
 
 
-// Route (/assign) POST
-app.post('/assign', shiftController.assignShift, (req, res) => {
-  // server responds with status (201) indicating shift has been created
-  // server responds with shift information of the new shift created
-  console.log('---> routed through /assign');
-  return res.status(201).json(res.locals.shift);
-})
+// // Route (/assign) POST
+// app.post('/assign', shiftController.assignShift, (req, res) => {
+//   // server responds with status (201) indicating shift has been created
+//   // server responds with shift information of the new shift created
+//   console.log('---> routed through /assign');
+//   return res.status(201).json(res.locals.shift);
+// })
 
-// To all other routes, send index.html
+// After all routes, catch all
 app.get('*', (req, res) => {
-  console.log('---> routed through /* route');
-  return res.sendFile(path.join(__dirname, '../build/index.html'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 
 // Global error handler
@@ -153,7 +154,13 @@ app.use((err, req, res, next) => {
 });
 
 
+
+
 // start server listener
 app.listen(PORT, () => {
     console.log(`Backend server app listening on port ${PORT}`);
   });
+
+
+
+ 
