@@ -103,6 +103,17 @@ function Dashboard() {
       return newMyShifts;
     });
   };
+
+const handleAcceptShift = async () => {
+  const response = await fetch('');
+  if (!response.ok) throw new Error('Unable to accept shift');
+  const result = await response.json();
+  console.log(result.message)
+}
+
+
+
+
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:3000/logout');
