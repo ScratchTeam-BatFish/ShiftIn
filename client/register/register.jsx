@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Form from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Switch, useNavigate } from 'react-router-dom';
 import customTheme from '../themes/customTheme.js';
@@ -104,8 +105,11 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          
+          {/* form component */}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+              {/* <Form></Form> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
