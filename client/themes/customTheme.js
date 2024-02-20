@@ -18,7 +18,6 @@ const customTheme = createTheme({
         'sans-serif',
       ].join(','),
       fontSize: 14, 
-      color: '#000000',
     },
     shape: {
       borderRadius: 8, // Adjust border radius for components

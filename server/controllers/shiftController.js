@@ -14,8 +14,8 @@ shiftController.getShifts = async (req, res, next) => {
     // query the database
 
     // assume we have access to username
-    // const username = res.locals.username;
-    const username = 'santa';
+    const username = res.locals.username;
+    
 
     try {
         // query the database

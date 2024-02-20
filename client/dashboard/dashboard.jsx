@@ -119,7 +119,7 @@ function Dashboard() {
         <Box sx={{ bgcolor: 'background.paper', color: 'primary.contrastText', py: 3 }}>
           <Container maxWidth="lg">
             {myShifts.length > 0 && (
-              <Typography variant="h4" component="h1" color="inherit">
+              <Typography variant="h4" component="h1">
                 Welcome {myShifts[0].employee}
               </Typography>
             )}
