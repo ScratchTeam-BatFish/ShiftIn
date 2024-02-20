@@ -4,10 +4,10 @@ import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 const customTheme = createTheme({
     palette: {
       primary: {
-        main: '#1976d2', 
+        main: '#007561'
       },
       secondary: {
-        main: '#f50057', 
+        main: '#DFE0DF', 
       },
       // Can define other colors like error, warning, info, and success here
     },

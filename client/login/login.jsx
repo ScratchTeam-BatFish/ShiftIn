@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
 import Dashboard from '../dashboard/dashboard.jsx'
+import customTheme from '../themes/customTheme.js';
 
 function Copyright(props) {
   return (
@@ -81,7 +82,7 @@ export default function Login() {
   const img = 'https://images.unsplash.com/photo-1535850452425-140ee4a8dbae?q=80&w=3424&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={customTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -143,6 +144,7 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
+                color="primary"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
