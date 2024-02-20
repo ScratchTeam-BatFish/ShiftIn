@@ -9,6 +9,7 @@
 // }
 
 // export default Dashboard;
+// export default Dashboard;
 
 // import * as React from 'react';
 // import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -35,7 +36,7 @@
 // // import Orders from './Orders';
 // import { useNavigate } from 'react-router-dom'
 // import Footer from '../footer.jsx'
-// // import { customTheme } from '../customTheme.js'
+// // import { customTheme } from '../themes/customTheme.js'
 
 
 
@@ -292,23 +293,53 @@
 
 
 
-
-// Simplified version of the Dashboard component below  that is closer to the skeleton that we are looking for
-
-
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Container, Grid, Typography, ThemeProvider } from '@mui/material';
 import customTheme from '../themes/customTheme.js';
+
 
 function Dashboard() {
   const [myShifts, setMyShifts] = useState([{}]);
   const [availableShifts, setAvailableShifts] = useState([{}]);
 
+  useEffect(() => {
+    // Fetch my shifts
+    fetchMyShifts();
+
+    // Fetch available shifts
+    fetchAvailableShifts();
+  }, []); 
+
+  const fetchMyShifts = async () => {
+    try {
+      const response = await fetch('/my-shifts');
+      if (!response.ok) {
+        throw new Error('Failed to fetch my shifts');
+      }
+      const data = await response.json();
+      setMyShifts(data);
+    } catch (error) {
+      console.error('Error fetching my shifts:', error);
+    }
+  };
+
+  const fetchAvailableShifts = async () => {
+    try {
+      const response = await fetch('/available-shifts');
+      if (!response.ok) {
+        throw new Error('Failed to fetch available shifts');
+      }
+      const data = await response.json();
+      setAvailableShifts(data);
+    } catch (error) {
+      console.error('Error fetching available shifts:', error);
+    }
+  };
+
   const addShift = (setShifts) => {
     setShifts((prevShifts) => [...prevShifts, {}]);
   };
+
 
   const removeShift = (setShifts) => {
     setShifts((prevShifts) => {
@@ -317,6 +348,7 @@ function Dashboard() {
       return newShifts;
     });
   };
+
 
   return (
     <ThemeProvider theme={customTheme}>
@@ -333,7 +365,7 @@ function Dashboard() {
                 My Shifts
               </Typography>
               {myShifts.map((_, index) => (
-                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2, border: '1px solid red' }}>
                   <Typography variant="body1" component="div">
                     Shift {index + 1}
                   </Typography>
@@ -347,7 +379,7 @@ function Dashboard() {
                 Available Shifts
               </Typography>
               {availableShifts.map((_, index) => (
-                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2 }}>
+                <Box key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2, border: '1px solid blue' }}>
                   <Typography variant="body1" component="div">
                     Shift {index + 1}
                   </Typography>
@@ -368,7 +400,5 @@ function Dashboard() {
   );
 }
 
+
 export default Dashboard;
-
-
-
