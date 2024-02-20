@@ -117,12 +117,12 @@ app.use((err, req, res, next) => {
   return res.status(errorObject.status).json(errorObject.message);
 });
 
-
 // ??? Super critical
 // After all routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 })
+
 
 // start server listener
 app.listen(PORT, () => {
