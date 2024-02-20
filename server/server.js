@@ -38,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 // handles loading the initial html page
 app.get('/', (req, res) => {
   console.log('Request for INDEX.HTML received');
-  
   const route = path.join(__dirname, '../build/index.html');
   return res.sendFile(route);
 })
@@ -68,18 +67,23 @@ app.get('/shifts', tokenController.authenticateToken, shiftController.getShifts,
 //   return res.status(200).send('GET request to /register');
 // })
 
-// Route (/register) POST - Create a user
-app.post('/register', userController.createUser,(req, res) => {
-  console.log('---> routed through /register\n');
-  // send them to login
+// Route (/register) GET 
+// app.get('/register', (req, res) => {
+//   console.log('we are in the server')
+//   return res.status(200).send('GET request to /register');
+// })
+
+
+// Route (/register) POST // Create a user
+app.post('/register', userController.createUser, (req, res) => {
+  console.log('---> routed through /register');
   // server responds with status (201) indicating user has been created
-  // server responds with json() // takes JSON as input and parses it to produce a JS object
-  // client side: if (response.status === 201) then redirect to ('/login') using useNavigate()
+  // server responds with user information of the new user created
   return res.status(201).json(res.locals.user);
 })
 
 
-// Route (/login) POST / Login a user
+// Route (/login) POST // Login a user
 app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
@@ -104,12 +108,30 @@ app.post('/login', userController.verifyUser, (req, res) => {
 })
 
 
-// Route (/dashboard) GET / Render dashboard
-app.get('/dashboard', shiftController.getShifts, (req, res) => {
-  console.log('---> routed through /dashboard\n');
+// Route (/drop) PATCH // Drop a shift
+app.patch('/drop', shiftController.dropShift, (req, res) => {
+  console.log('---> routed through /drop');
+  // server responds with status (202) indicating update to shift has been accepted
+  // server responds with shift that was picked up
+  return res.status(202).json({});
+})
 
-  // server responds with status (202) indicated user has been accepted
-  return res.status(202).json(res.locals.shifts);
+
+// Route (/pickup) PATCH // Pickup a shift
+app.patch('/pickup', shiftController.pickupShift, (req, res) => {
+  console.log('---> routed through /pickup');
+  // server responds with status (202) indicating update to shift has been accepted
+  // server responds with shift that was dropped
+  return res.status(202).json({});
+})
+
+
+// Route (/assign) POST
+app.post('/assign', shiftController.assignShift, (req, res) => {
+  // server responds with status (201) indicating shift has been created
+  // server responds with shift information of the new shift created
+  console.log('---> routed through /assign');
+  return res.status(201).json(res.locals.shift);
 })
 
 // After all routes, catch all

@@ -1,5 +1,6 @@
 //import shiftModel & userModel
 const Shift = require('../models/shiftModel.js');
+const Shift = require('../models/shiftModel.js');
 const User = require('../models/userModel.js');
 
 
@@ -18,6 +19,7 @@ shiftController.getShifts = async (req, res, next) => {
     const username = 'santa';
 
     try {
+        // query the database
         console.log('querying database...')
         // Getting shifts from mongoDB
         const shifts = await Shift.find({ employee: username }); // need to update user info on shifts db
@@ -57,6 +59,9 @@ shiftController.pickupShift = (req, res, next) => {
 
 // Drop a shift
 shiftController.dropShift = (req, res, next) => {
+    console.log('PATCH request to /drop');
+    console.log('req.body contains: ', req.body);
+    
     return next();
 }
 
