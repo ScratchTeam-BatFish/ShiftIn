@@ -22,6 +22,7 @@ const PORT = 3000;
 // handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 // Connect to MongoDB
@@ -96,9 +97,9 @@ app.post('/login', userController.verifyUser, (req, res) => {
   return res.status(202).json(res.locals.userInfo);
 })
 
-
+// shiftController.getShifts,
 // Route (/dashboard) GET // Render dashboard
-app.get('/dashboard', shiftController.getShifts, (req, res) => {
+app.get('/dashboard', (req, res) => {
   console.log('---> routed through /dashboard');
   // server responds with status (202) indicating user has been accepted
   // server responds with array of shifts
@@ -132,6 +133,11 @@ app.post('/assign', shiftController.assignShift, (req, res) => {
   return res.status(201).json(res.locals.shift);
 })
 
+// To all other routes, send index.html
+app.get('*', (req, res) => {
+  console.log('---> routed through /* route');
+  return res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -145,12 +151,6 @@ app.use((err, req, res, next) => {
   const errorObject = Object.assign({}, defaultError, err);
   return res.status(errorObject.status).json(errorObject.message);
 });
-
-
-// To all other routes, send index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
 
 
 // start server listener

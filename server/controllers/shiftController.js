@@ -7,6 +7,10 @@ const shiftController = {};
 
 // Get a logged in user's shifts
 shiftController.getShifts = async (req, res, next) => {
+
+    // pass in cookie
+    // read cookie
+    // query db with cookie username 
     console.log('GET request to /dashboard');
     console.log('req.body contains: ', req.body);
 
