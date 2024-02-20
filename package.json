@@ -10,7 +10,7 @@
     "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js \"",
     "test": "jest"
   },
-  "author": "",
+  "author": "Co-authored-by: RoderickXii <roderickx.deleon@gmail.com>, Co-authored-by: julesdmai <julesdmai@gmail.com>, Co-authored-by: kravchuknick <kravchuknick@gmail.com>, Co-authored-by: robsinz <robsin@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.11.3",
