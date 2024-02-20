@@ -49,14 +49,12 @@ export default function Login() {
     try {
       console.log('sending request to server...')
       const response = await fetch('/login', {
-      console.log('sending request to server...')
-      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-      });
+      })
 
       // quick check if response from server is NOT ok
       if (!response.ok) throw new Error ('Login failed');
