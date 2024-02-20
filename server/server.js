@@ -7,8 +7,9 @@ const cookieParser = require('cookie-parser');
 // Cors configuration - future
 // Access to process.env variables - future
 
-//secret key variable: should be in a third party NOT safe to have here.
-const secretKey = 'secretKey123';
+//secret key variable: should be in a third party NOT safe to have here. // development only
+const SECRET_KEY = 'secretKey123';
+
 // Import controllers
 const userController = require('./controllers/userController');
 const tokenController = require('./controllers/tokenController');
@@ -49,8 +50,11 @@ app.get('/bundle.js', (req, res) => {
   return res.sendFile(route);
 })
 // need get router to get shifts array and send back to the front end
-app.get('/shifts', (req, res) => {
-  return res.sendFile();
+app.get('/shifts', tokenController.authenticateToken, shiftController.getShifts, (req, res) => {
+  console.log('---> routed through /shifts\n');
+  const shifts = res.locals.shifts;
+  return res.status(200).json(shifts);
+  // json-shifts = "[ {date, employee(username), available, userId}, {}...]"
 })
 // Route (/register) GET 
 // app.get('/register', (req, res) => {
@@ -80,18 +84,23 @@ app.post('/login', userController.verifyUser, (req, res) => {
   console.log('---> routed through /login\n');
   // Return token to client side to save to localStorage
   console.log('res.locals.userInfo', res.locals.userInfo)
-  // const username = res.locals.userInfo.username;
   
   const {username} = res.locals.userInfo;
   //created token for each user with 5min expiration
   const token = jwt.sign({username: username}, secretKey, { expiresIn: '5mins'});
-  console.log('token', token)
+  console.log('login:token:', token) // crazy long string
   // created cookie using token
-  res.cookie('token', token, { httpOnly: true, maxAge: 300000});
-  
-  console.log('cookies', res.cookie)
+  // sends cookie to client side after the user logins in
+  const cookie = res.cookie('token', token, { 
+    secure: true, 
+    httpOnly: true, 
+    maxAge: 300000
+  });
+  // console.log('cookie in login:', cookie.cookies);
   // server responds with status (202) indicating user has been accepted
-  return res.status(202).json(res.locals.userInfo);
+
+  //trying to send cookie 
+  return res.status(202).send('Cookies have been sent')
 })
 
 

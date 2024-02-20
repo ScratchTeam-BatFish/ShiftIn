@@ -1,34 +1,38 @@
 //import shiftModel & userModel
-const Schedule = require('../models/shiftModel.js');
+const Shift = require('../models/shiftModel.js');
 const User = require('../models/userModel.js');
 
 
 const shiftController = {};
 
-// Create a shift
+// Returns a list of the shifts
 shiftController.getShifts = async (req, res, next) => {
-    // res.body should have userId
-    const {userId} = req.body; // note: we have to decide where
+    // need to locate shifts from user:
+    // console.log('req.body', req.body) // as of now this is empty because nothing has been passed in, need cookie info from front end???
 
-    // Save $$$
-    if (!date || !employee || !available || !userId) {
-        return next({
-            log: 'missing shift data login parameters',
-            message: {err: 'Error occurred in shiftController.createShift.'},
-            status: 400,
-        });
-    }
+    // get an array back from token of available shifts to send to frontend
+    // query the database
+
+    // assume we have access to username
+    // const username = res.locals.username;
+    const username = 'santa';
+
     try {
         console.log('querying database...')
-        // Creating shift and storing into mongoDB
-        const shift = await Shift.create( { date: date, employee: employee, available: available, userId: userId });
-        console.log('found shifts:', shift);
+        // Getting shifts from mongoDB
+        const shifts = await Shift.find({ employee: username }); // need to update user info on shifts db
+        console.log('found shifts:', shifts);
+
+        // persist the data
+        res.locals.shifts = shifts;
+
+        // return next
         return next();
     } catch(err) {
         return next({
-            log: `shiftController.createShift: ERROR ${err}`,
+            log: `shiftController.getShifts: ERROR ${err}`,
             status: 400,
-            message: {err: 'Error occurred in shiftController.createShift. Check server logs for more details.'}
+            message: {err: 'Error occurred in shiftController.getShifts. Check server logs for more details.'}
         })
     }
 }
