@@ -40,12 +40,16 @@ shiftController.getShifts = async (req, res, next) => {
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
-// console.log('req.body', req.body)
+    // console.log('req.body', req.body)
     // find shift by ID
     // check to see if it exists
     // check to see if shift is available
 
-    // locate user by ID
+    // assume we have access to username
+    // const username = res.locals.username;
+    const username = 'santa';
+    
+    // locate user by username
 
     //
     return next();

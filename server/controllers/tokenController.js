@@ -16,6 +16,10 @@ tokenController.authenticateToken = (req, res, next) => {
     // const token = req.cookies.token;
     // console.log('token', token)
 
+    // persist data
+    // save username to res.locals.username
+
+    // return next
     return next();
 }
 
