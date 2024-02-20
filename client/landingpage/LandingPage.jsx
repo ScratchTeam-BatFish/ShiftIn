@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, Container, Grid, Typography, CssBaseline, ThemeProvider, Card } from '@mui/material';
-import NavBar from '../NavBar.jsx';
+import React from 'react';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import ProductHero from './ProductHero.jsx';
-import Footer from '../footer.jsx'
 import customTheme from '../themes/customTheme.js';
 
 export default function LandingPage() {

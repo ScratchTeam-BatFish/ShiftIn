@@ -14,12 +14,6 @@ export default function ProductHero() {
         backgroundPosition: 'center',
       }}
     >
-      {/* Increase the network loading priority of the background image. */}
-      {/* <img
-        style={{ display: 'none' }}
-        src={backgroundImage}
-        alt="increase priority"
-      /> */}
       <Typography color="inherit" align="center" variant="h2" marked="center">
         Plan your workdays tastefully!
       </Typography>

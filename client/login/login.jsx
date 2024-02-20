@@ -13,7 +13,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
-import Dashboard from '../dashboard/dashboard.jsx'
 import customTheme from '../themes/customTheme.js';
 
 function Copyright(props) {
@@ -21,7 +20,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        ShiftIn
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
