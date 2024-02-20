@@ -65,8 +65,8 @@ export default function Login() {
       console.log('user verified in database');
 
       // retrieving userId from server response
-      const userId = await response.json();
-      console.log('userId of logged in user: ', userId);
+      // const userId = await response.json();
+      // console.log('userId of logged in user: ', userId);
 
       // else response for server is ok
       console.log('---> navigating to /dashboard\n');

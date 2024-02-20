@@ -13,6 +13,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Container, Grid, Typography, ThemeProvider, Card } from '@mui/material';
 import customTheme from '../themes/customTheme.js';
+import NavBar from '../NavBar.jsx';
 
 function Dashboard() {
   const [myShifts, setMyShifts] = useState([]);
@@ -21,31 +22,38 @@ function Dashboard() {
   useEffect(() => {
     // Fetch my shifts
     fetchShifts();
-  }, []); 
+    console.log('Updated myShifts: ', myShifts);
 
-// combine shifts into one, fetchShifts
-// input will be the url and an object of the request parameters
-// wrap in a useEffect to run on a component mount
+  }, []);
+
+  // combine shifts into one, fetchShifts
+  // input will be the url and an object of the request parameters
+  // wrap in a useEffect to run on a component mount
   // when a page loads, do the function once 
 
-const fetchShifts = async () => {
-  try {
-    const response = await fetch('/shifts',{
-      credentials: 'include',
-      method: 'GET',
-    });
+  const fetchShifts = async () => {
+    try {
+      const response = await fetch('/shifts', {
+        credentials: 'include',
+        method: 'GET',
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch my shifts');
+      if (!response.ok) {
+        throw new Error('Failed to fetch my shifts');
+      }
+      const data = await response.json();
+      console.log('data in dashboard.jsx: ', data);
+      // returns a nested array
+      // array at 0 index will be the shifts that belong to the user, data at index 1 will be the shift that is available
+      setMyShifts(data[0]);
+      setAvailableShifts(data[1]);
+
+
+      console.log('myShifts: ', myShifts);
+    } catch (error) {
+      console.error('Error fetching my shifts:', error);
     }
-    const data = await response.json();
-    // returns a nested array
-    // array at 0 index will be the shifts that belong to the user, data at index 1 will be the shift that is available
-    setMyShifts(data);
-  } catch (error) {
-    console.error('Error fetching my shifts:', error);
-  }
-};
+  };
 
 
   // const fetchMyShifts = async () => {
@@ -97,6 +105,7 @@ const fetchShifts = async () => {
     });
   };
 
+  // render to page
   return (
     <ThemeProvider theme={customTheme}>
       <Box
@@ -106,11 +115,14 @@ const fetchShifts = async () => {
           minHeight: '100vh',
         }}
       >
+        <NavBar name="something" />
         <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', py: 3 }}>
           <Container maxWidth="lg">
-            <Typography variant="h4" component="h1">
-              Shiftin Dashboard
-            </Typography>
+            {myShifts.length > 0 && (
+              <Typography variant="h4" component="h1">
+                Welcome {myShifts[0].employee}
+              </Typography>
+            )}
           </Container>
         </Box>
 
@@ -121,10 +133,10 @@ const fetchShifts = async () => {
                 <Typography variant="h5" component="h2" gutterBottom>
                   My Shifts
                 </Typography>
-                {myShifts.map((_, index) => (
+                {myShifts.reverse().map((shift, index) => (
                   <Card key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2, border: '1px solid #ccc' }}>
                     <Typography variant="body1" component="div">
-                      Shift {index + 1}
+                      Shift - {shift.date}
                     </Typography>
                     <Button variant="contained" onClick={() => removeShift(index, setMyShifts, setAvailableShifts)}>
                       Remove Shift
@@ -144,10 +156,10 @@ const fetchShifts = async () => {
                 <Typography variant="h5" component="h2" gutterBottom>
                   Available Shifts
                 </Typography>
-                {availableShifts.map((_, index) => (
+                {availableShifts.map((shift, index) => (
                   <Card key={index} sx={{ bgcolor: 'background.paper', p: 2, mt: 2, border: '1px solid #ccc' }}>
                     <Typography variant="body1" component="div">
-                      Shift {index + 1}
+                      Shift {shift.date}
                     </Typography>
                     <Button variant="contained" onClick={() => acceptShift(index, setMyShifts, setAvailableShifts)}>
                       Accept Shift
