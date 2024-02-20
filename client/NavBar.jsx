@@ -16,7 +16,7 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 const pages = ['Home', 'My Calendar', 'Help'];
 const settings = ['Account', 'My Notifications', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -99,7 +99,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
