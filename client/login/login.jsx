@@ -65,8 +65,8 @@ export default function Login() {
       console.log('user verified in database');
 
       // retrieving userId from server response
-      const userId = await response.json();
-      console.log('userId of logged in user: ', userId);
+      // const userId = await response.json();
+      // console.log('userId of logged in user: ', userId);
 
       // else response for server is ok
       console.log('---> navigating to /dashboard\n');
@@ -98,7 +98,7 @@ export default function Login() {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} square>
           <Box
             sx={{
               my: 8,

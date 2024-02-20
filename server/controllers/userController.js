@@ -1,6 +1,9 @@
 // Import jwt, possible express and cookie parser
 // const jwt = require ('jsonwebtoken');
 // const cookieParser = require('cookie-parser');
+// Import jwt, possible express and cookie parser
+// const jwt = require ('jsonwebtoken');
+// const cookieParser = require('cookie-parser');
 const User = require('../models/userModel.js');
 
 const userController = {};
@@ -110,6 +113,10 @@ userController.verifyUser = async (req, res, next) => {
         if (user) {
             console.log('User logged in...cash money')
             console.log('storing logged in user information on res.locals.user');
+    
+            res.locals.userInfo = user;
+            
+            console.log('res.locals.userInfo: ', res.locals.userInfo);
     
             res.locals.userInfo = user;
             

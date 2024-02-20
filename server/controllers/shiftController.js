@@ -5,47 +5,42 @@ const User = require('../models/userModel.js');
 
 const shiftController = {};
 
-// Get a logged in user's shifts
+// Returns a list of the shifts
 shiftController.getShifts = async (req, res, next) => {
-
-    // pass in cookie
-    // read cookie
-    // query db with cookie username 
+    // res.body should have userId
     console.log('GET request to /dashboard');
     console.log('req.body contains: ', req.body);
+    const {userId} = req.body; // note: we have to decide where
 
-    const { userId } = req.body;
-    console.log('userId: ', userId);
+    // get an array back from token of available shifts to send to frontend
+    // query the database
 
-    // Save $$$ // Check for missing parameters
-    if (!userId) {
-        return next({
-            log: 'missing user id. unable to generate user shifts',
-            message: {err: 'Error occurred in shiftController.createShift.'},
-            status: 400,
-        });
-    }
+    // assume we have access to username
+    const username = res.locals.username;
+    
+
     try {
         // query the database
         console.log('querying database...')
-        const shiftsArray = await Shift.find({ userId: userId});
-        console.log('found shifts:', shiftsArray);
+        // Getting shifts from mongoDB
+        const shifts = await Shift.find({ employee: username }); // need to update user info on shifts db
+        console.log('found shifts:', shifts);
+
+        const availableShifts = await Shift.find({ available: true }); // fix if employee is null
+        console.log('found available shifts: ', availableShifts);
 
         // persist the data
-        res.locals.shiftsArray = shiftsArray;
-        console.log('storing shiftsArray on res.locals.shifts: ', res.locals.shiftsArray);
-
-        // testing
-        console.log(`${shiftsArray.length} shifts have been retrieved for user ${userId}`);
+        res.locals.shifts = shifts;
+        res.locals.availableShifts = availableShifts;
 
         // return next
         console.log('exiting shiftController.getShifts');
         return next();
     } catch(err) {
         return next({
-            log: `shiftController.createShift: ERROR ${err}`,
+            log: `shiftController.getShifts: ERROR ${err}`,
             status: 400,
-            message: {err: 'Error occurred in shiftController.createShift. Check server logs for more details.'}
+            message: {err: 'Error occurred in shiftController.getShifts. Check server logs for more details.'}
         });
     }
 }
@@ -103,9 +98,15 @@ shiftController.assignShift = async (req, res, next) => {
 
 // Pickup a shift
 shiftController.pickupShift = (req, res, next) => {
-    console.log('PATCH request to /pickup');
+    console.log('PATCH request to pickup');
     console.log('req.body contains: ', req.body);
+    // find shift by ID
+    // check to see if it exists
+    // check to see if shift is available
 
+    // locate user by ID
+
+    //
     return next();
 }
 
@@ -113,6 +114,9 @@ shiftController.pickupShift = (req, res, next) => {
 shiftController.dropShift = (req, res, next) => {
     console.log('PATCH request to /drop');
     console.log('req.body contains: ', req.body);
+    // find shift by ID
+    // check to see if it exists
+    // check to see if shift is available
     
     return next();
 }
