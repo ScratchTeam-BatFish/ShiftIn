@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Dashboard from './dashboard/dashboard.jsx';
 import Login from './login/login.jsx';
 import Register from './register/register.jsx';
+import LandingPage from "./landingpage/LandingPage.jsx";
 
 
 const App = () => {
@@ -33,7 +34,7 @@ const App = () => {
     return (
       <Router>
         <Routes>
-            
+          <Route path="/" element={<LandingPage />} />
           <Route path="/" element={<div>Welcome to the app! <a href="/login">Login</a> or <a href="/register">Register</a></div>} />
           <Route path="/register" element={<Register />}> Connected in App Register Path </Route>
           <Route path="/login" element={<Login />} />
