@@ -1,6 +1,5 @@
 //import shiftModel & userModel
 const Shift = require('../models/shiftModel.js');
-const Shift = require('../models/shiftModel.js');
 const User = require('../models/userModel.js');
 
 
@@ -15,8 +14,8 @@ shiftController.getShifts = async (req, res, next) => {
     // query the database
 
     // assume we have access to username
-    // const username = res.locals.username;
-    const username = 'santa';
+    const username = res.locals.username;
+    
 
     try {
         // query the database
@@ -25,8 +24,12 @@ shiftController.getShifts = async (req, res, next) => {
         const shifts = await Shift.find({ employee: username }); // need to update user info on shifts db
         console.log('found shifts:', shifts);
 
+        const availableShifts = await Shift.find({ available: true }); // fix if employee is null
+        console.log('found available shifts: ', availableShifts);
+
         // persist the data
         res.locals.shifts = shifts;
+        res.locals.availableShifts = availableShifts;
 
         // return next
         return next();

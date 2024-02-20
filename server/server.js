@@ -51,7 +51,8 @@ app.get('/bundle.js', (req, res) => {
 // need get router to get shifts array and send back to the front end
 app.get('/shifts', tokenController.authenticateToken, shiftController.getShifts, (req, res) => {
   console.log('---> routed through /shifts\n');
-  const shifts = res.locals.shifts;
+  const shifts = [res.locals.shifts, res.locals.availableShifts];
+  console.log('shifts', shifts)
   return res.status(200).json(shifts);
   // json-shifts = "[ {date, employee(username), available, userId}, {}...]"
 })
@@ -91,7 +92,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
   
   const {username} = res.locals.userInfo;
   //created token for each user with 5min expiration
-  const token = jwt.sign({username: username}, secretKey, { expiresIn: '5mins'});
+  const token = jwt.sign({username: username}, SECRET_KEY, { expiresIn: '5mins'});
   console.log('login:token:', token) // crazy long string
   // created cookie using token
   // sends cookie to client side after the user logins in
@@ -104,7 +105,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
   // server responds with status (202) indicating user has been accepted
 
   //trying to send cookie 
-  return res.status(202).send('Cookies have been sent')
+  return res.status(202).send('cookie sent');
 })
 
 
@@ -126,13 +127,13 @@ app.patch('/pickup', shiftController.pickupShift, (req, res) => {
 })
 
 
-// Route (/assign) POST
-app.post('/assign', shiftController.assignShift, (req, res) => {
-  // server responds with status (201) indicating shift has been created
-  // server responds with shift information of the new shift created
-  console.log('---> routed through /assign');
-  return res.status(201).json(res.locals.shift);
-})
+// // Route (/assign) POST
+// app.post('/assign', shiftController.assignShift, (req, res) => {
+//   // server responds with status (201) indicating shift has been created
+//   // server responds with shift information of the new shift created
+//   console.log('---> routed through /assign');
+//   return res.status(201).json(res.locals.shift);
+// })
 
 // After all routes, catch all
 app.get('*', (req, res) => {
@@ -159,3 +160,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Backend server app listening on port ${PORT}`);
   });
+
+
+
+ 
